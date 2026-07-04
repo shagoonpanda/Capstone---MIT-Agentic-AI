@@ -1,4 +1,4 @@
-# Capstone---MIT-Agentic-AI
+# Individual Capstone Submission - MIT-Agentic-AI
 Hypothetical: CareNav Agent is a voice-enabled, agentic AI clinical decision-support system designed to relieve emergency department (ED) overcrowding caused by Ontario's primary care access crisis. 
 
 CareNav Agent is a voice-enabled, agentic AI clinical decision-support system designed to relieve emergency department (ED) overcrowding caused by Ontario's primary care access crisis. It assigns Canadian Triage and Acuity Scale (CTAS) scores and recommends care pathways, with a mandatory human-in-the-loop (HITL) confirmation on every recommendation at launch. The plan below sets out an organization, a technology rationale, a cost envelope, a NIST-aligned security posture, a change-management approach grounded in ADKAR, a crawl-walk-run scaling path tied to measurable performance gates, a PHIPA-anchored governance structure, and five KPIs with defined targets and safety thresholds. The recurring theme across every section is the same: CareNav earns autonomy incrementally, under named human accountability, never on a fixed calendar.
