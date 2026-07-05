@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Applied Agentic AI for Organizational Transformation — Course Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F4F0; --panel:#FFFFFF; --panel-2:#F8F8F5;
+  --ink:#161F26; --ink-soft:#54626A; --ink-faint:#8C9895;
+  --line:#DEE3DD; --line-strong:#C6CDC5;
+  --accent:#1F5C73; --accent-soft:#E3EEF1; --accent-ink:#0F3A4A;
+  --green:#3F8F5F; --green-soft:#E4F1E9;
+  --amber:#B8860B; --amber-soft:#F7EED9;
+  --red:#B03A2E; --red-soft:#F6E4E1;
+  --orange:#C1602A; --orange-soft:#F5E7DA;
+  --purple:#5B4E96; --purple-soft:#EBE8F5;
+  --font-sans:'IBM Plex Sans',-apple-system,sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+  --radius:10px;
+  --maxw:1180px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--font-sans); -webkit-font-smoothing:antialiased; line-height:1.6;}
+a{color:var(--accent-ink);}
+::selection{background:var(--accent-soft); color:var(--accent-ink);}
+h1,h2,h3,h4{margin:0; letter-spacing:-.01em;}
+p{margin:0 0 12px 0;}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px;}
+@media (max-width:700px){ .wrap{padding:0 18px;} }
+
+/* ===== NAV ===== */
+.topnav{position:sticky; top:0; z-index:50; background:var(--ink); color:#fff; border-bottom:1px solid #0B1216;}
+.topnav .wrap{display:flex; align-items:center; justify-content:space-between; height:60px;}
+.brand{display:flex; align-items:center; gap:10px; cursor:pointer; text-decoration:none; color:#fff;}
+.brand .mark{width:26px; height:26px; border:1.5px solid #6FA6B8; border-radius:6px; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:13.5px; font-weight:600; color:#8FC0CF;}
+.brand .name{font-size:15.5px; font-weight:600;}
+.brand .name small{display:block; font-weight:400; font-size:12px; color:#9FB4BC; font-family:var(--font-mono); letter-spacing:.04em;}
+.navlinks{display:flex; gap:4px; align-items:center;}
+.navlinks a{color:#C7D4D8; text-decoration:none; font-size:15px; padding:8px 14px; border-radius:6px; cursor:pointer;}
+.navlinks a:hover{color:#fff; background:rgba(255,255,255,.06);}
+.navlinks a.active{color:#fff; background:rgba(255,255,255,.1);}
+.navtoggle{display:none; background:none; border:none; color:#fff; font-size:23.5px; cursor:pointer;}
+@media (max-width:800px){
+  .navlinks{position:fixed; top:60px; left:0; right:0; background:var(--ink); flex-direction:column; align-items:stretch; padding:8px 18px 16px 18px; display:none; gap:2px;}
+  .navlinks.open{display:flex;}
+  .navtoggle{display:block;}
+}
+
+/* ===== HERO ===== */
+.hero{background:var(--ink); color:#fff; padding:52px 0 60px 0;}
+.hero .eyebrow{font-family:var(--font-mono); font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:#8FC0CF; margin:0 0 10px 0;}
+.hero h1{font-size:35.5px; font-weight:600; max-width:680px; line-height:1.2;}
+.hero p.lede{color:#B7C4C9; font-size:16.5px; max-width:560px; margin-top:14px;}
+.hero-meta{display:flex; gap:28px; margin-top:28px; flex-wrap:wrap;}
+.hero-meta div{font-family:var(--font-mono); font-size:13.5px; color:#9FB4BC;}
+.hero-meta div b{display:block; color:#fff; font-size:16.5px; font-weight:600; margin-top:2px;}
+
+/* ===== TIMELINE (signature element) ===== */
+.timeline{background:var(--panel); border-bottom:1px solid var(--line); padding:22px 0;}
+.timeline-track{display:flex; align-items:flex-start; position:relative; overflow-x:auto; padding-bottom:4px;}
+.timeline-track::before{content:''; position:absolute; top:15px; left:0; right:0; height:1.5px; background:var(--line-strong); z-index:0;}
+.tnode{flex:1; min-width:118px; text-align:center; position:relative; z-index:1; cursor:pointer; padding:0 4px;}
+.tnode .dot{width:30px; height:30px; border-radius:50%; background:var(--panel); border:1.5px solid var(--line-strong); margin:0 auto 8px auto; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:13.5px; font-weight:600; color:var(--ink-faint); transition:.15s;}
+.tnode:hover .dot{border-color:var(--accent); color:var(--accent);}
+.tnode .tlabel{font-size:12.5px; color:var(--ink-soft); line-height:1.3;}
+.tnode.current .dot{background:var(--accent); border-color:var(--accent); color:#fff;}
+
+/* ===== SECTIONS / GRID ===== */
+.section{padding:44px 0;}
+.section-head{margin-bottom:22px;}
+.kicker{font-family:var(--font-mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:0 0 6px 0;}
+.section-head h2{font-size:25.5px;}
+.section-head p{color:var(--ink-soft); font-size:16px; max-width:700px; margin-top:8px;}
+
+.grid{display:grid; gap:16px;}
+.grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}
+.grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr));}
+.grid.cols-4{grid-template-columns:repeat(4,minmax(0,1fr));}
+@media (max-width:900px){ .grid.cols-3,.grid.cols-4{grid-template-columns:repeat(2,minmax(0,1fr));} }
+@media (max-width:620px){ .grid.cols-2,.grid.cols-3,.grid.cols-4{grid-template-columns:1fr;} }
+
+.card{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 20px; cursor:pointer; transition:.15s; text-align:left;}
+.card:hover{border-color:var(--accent); transform:translateY(-1px);}
+.card .cnum{font-family:var(--font-mono); font-size:12.5px; color:var(--accent); letter-spacing:.06em;}
+.card h3{font-size:17.5px; margin:6px 0 6px 0;}
+.card p{font-size:14.5px; color:var(--ink-soft); margin:0;}
+.card .ctags{display:flex; gap:6px; margin-top:12px; flex-wrap:wrap;}
+.tag{font-family:var(--font-mono); font-size:12px; padding:3px 9px; border-radius:20px; background:var(--panel-2); border:1px solid var(--line); color:var(--ink-soft);}
+
+/* ===== DETAIL PAGE ===== */
+.detail-head{background:var(--panel-2); border-bottom:1px solid var(--line); padding:34px 0;}
+.back-link{font-family:var(--font-mono); font-size:13.5px; color:var(--accent-ink); cursor:pointer; display:inline-flex; align-items:center; gap:6px; margin-bottom:14px;}
+.detail-head h1{font-size:27.5px;}
+.detail-head .sub{color:var(--ink-soft); font-size:15.5px; margin-top:8px; max-width:720px;}
+.badgebar{display:flex; gap:8px; margin-top:16px; flex-wrap:wrap;}
+
+.detail-body{display:grid; grid-template-columns:210px 1fr; gap:36px; padding:34px 0 70px 0; align-items:flex-start;}
+@media (max-width:820px){ .detail-body{grid-template-columns:1fr;} }
+.toc{position:sticky; top:76px;}
+.toc .toc-label{font-family:var(--font-mono); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:10px;}
+.toc a{display:block; font-size:14px; color:var(--ink-soft); text-decoration:none; padding:5px 0; border-left:2px solid transparent; padding-left:10px; cursor:pointer;}
+.toc a:hover{color:var(--ink);}
+
+.acc-item{border:1px solid var(--line); border-radius:10px; margin-bottom:10px; background:var(--panel); overflow:hidden;}
+.acc-head{display:flex; justify-content:space-between; align-items:center; padding:14px 18px; cursor:pointer; gap:12px;}
+.acc-head h3{font-size:16.5px; font-weight:600;}
+.acc-head .chev{font-family:var(--font-mono); color:var(--ink-faint); transition:transform .15s; font-size:14.5px;}
+.acc-item.open .chev{transform:rotate(90deg); color:var(--accent);}
+.acc-body{max-height:0; overflow:hidden; transition:max-height .25s ease;}
+.acc-item.open .acc-body{max-height:4000px;}
+.acc-inner{padding:0 18px 18px 18px; font-size:15px; color:var(--ink-soft);}
+.acc-inner p{margin:0 0 10px 0;}
+.acc-inner ul{margin:0 0 10px 0; padding-left:20px;}
+.acc-inner li{margin-bottom:5px;}
+.acc-inner strong{color:var(--ink);}
+
+table.dtable{width:100%; border-collapse:collapse; font-size:14px; margin:8px 0 14px 0;}
+table.dtable th{text-align:left; font-family:var(--font-mono); font-size:12px; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-faint); border-bottom:1px solid var(--line-strong); padding:7px 9px;}
+table.dtable td{border-bottom:1px solid var(--line); padding:8px 9px; vertical-align:top;}
+table.dtable tr:last-child td{border-bottom:none;}
+
+.callout{border:1px solid var(--line); border-left:3px solid var(--accent); background:var(--accent-soft); border-radius:0 8px 8px 0; padding:12px 16px; font-size:14.5px; color:var(--accent-ink); margin:10px 0;}
+.callout.warn{border-left-color:var(--amber); background:var(--amber-soft); color:#5C4300;}
+.callout.link1{border-left-color:#3A6EA5;}
+.callout.link3{border-left-color:#2E8B78;}
+
+.badge{display:inline-block; font-size:12.5px; font-family:var(--font-mono); font-weight:600; padding:2px 9px; border-radius:20px;}
+.badge.b-green{background:var(--green-soft); color:var(--green);}
+.badge.b-amber{background:var(--amber-soft); color:var(--amber);}
+.badge.b-red{background:var(--red-soft); color:var(--red);}
+.badge.b-orange{background:var(--orange-soft); color:var(--orange);}
+.badge.b-accent{background:var(--accent-soft); color:var(--accent-ink);}
+.badge.b-purple{background:var(--purple-soft); color:var(--purple);}
+
+.feedback{border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin-bottom:10px; background:var(--panel-2);}
+.feedback .who{font-family:var(--font-mono); font-size:12.5px; color:var(--ink-faint); margin-bottom:6px;}
+.feedback p{font-size:15px; color:var(--ink); margin:0;}
+
+.chip-row{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 16px 0;}
+.chip{font-family:var(--font-mono); font-size:13px; padding:5px 11px; border-radius:20px; background:var(--panel); border:1px solid var(--line-strong); color:var(--ink-soft);}
+
+.stat-tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin:10px 0 16px 0;}
+.stat-tile{background:var(--panel-2); border-radius:8px; padding:12px 14px;}
+.stat-tile .n{font-family:var(--font-mono); font-size:21.5px; font-weight:600;}
+.stat-tile .l{font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.04em;}
+
+footer.sitefoot{background:var(--ink); color:#9FB4BC; padding:30px 0; font-size:13.5px; margin-top:40px;}
+footer.sitefoot a{color:#C7D4D8;}
+.crossref{display:flex; gap:14px; flex-wrap:wrap; margin-top:8px;}
+.crossref .xr{flex:1; min-width:220px; border:1px solid var(--line); border-radius:10px; padding:14px 16px; cursor:pointer; background:var(--panel);}
+.crossref .xr:hover{border-color:var(--accent);}
+.crossref .xr .xk{font-family:var(--font-mono); font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--accent);}
+.crossref .xr h4{font-size:15px; margin:5px 0;}
+.crossref .xr p{font-size:13.5px; color:var(--ink-soft); margin:0;}
+
+#app{min-height:60vh;}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <a class="brand" onclick="go('home')">
+      <span class="mark">AI</span>
+      <span class="name">Applied Agentic AI for Organizational Transformation<small>MIT Professional Education · Course portfolio</small></span>
+    </a>
+    <button class="navtoggle" onclick="document.getElementById('navlinks').classList.toggle('open')">&#9776;</button>
+    <div class="navlinks" id="navlinks">
+      <a onclick="go('home')" data-route="home">Home</a>
+      <a onclick="go('modules')" data-route="modules">Modules</a>
+      <a onclick="go('assignments')" data-route="assignments">Assignments</a>
+      <a onclick="go('capstone')" data-route="capstone">Capstone</a>
+    </div>
+  </div>
+</nav>
+
+<div id="app"></div>
+
+<footer class="sitefoot">
+  <div class="wrap">
+    Applied Agentic AI for Organizational Transformation · Cohort May 2026 · Prepared by Shagoon Sarita Panda<br>
+    Course portfolio site — a study companion built from module content and submitted assignment work, with AI drafting assistance from Claude (Anthropic) per MIT's citation policy.
+  </div>
+</footer>
+
+<script id="data-script">
+const MODULES = [
+{num:1, title:'Foundations of Generative and Agentic AI', tagline:'How generative AI actually works, how chatbots evolved into agents, and why cost is a strategic lever, not an afterthought.',
+ outcomes:['Explain the evolution and landscape of generative AI','Distinguish between major AI model types and terminology','Evaluate the strategic value of AI functionalities such as chatbots, reasoning, and multimedia','Construct an evaluation of the cost of an AI system'],
+ tags:['LLMs','Cost modeling','History of AI'],
+ assignmentRef:'1.1',
+ sections:[
+  {h:'Generative AI fundamentals', b:`<p>Generative AI produces new content — text, images, audio, video, code — rather than simply classifying or predicting from existing patterns the way earlier "predictive AI" did. Since ChatGPT's 2022 launch, the technology has driven measurable productivity gains, with customer service organizations reporting 15–30% efficiency improvements from generative AI adoption.</p>
+  <p>Its practical uses span six modalities covered in this module: written content (marketing copy, executive summaries), audio synthesis (voice-overs, background music), image and video generation (concept visuals, product demos), code generation (boilerplate, API integrations, unit tests), speech-to-text (meeting transcription), and text-to-speech (virtual assistants, multilingual e-learning).</p>`},
+  {h:'The architecture underneath: machine learning, neural networks, deep learning, GANs', b:`<p>Generative AI rests on machine learning — algorithms that learn patterns from data rather than being explicitly programmed. Neural networks, loosely modeled on the brain, are the engines that let this happen at scale: layers of interconnected nodes that process input and refine predictions.</p>
+  <p><strong>Deep learning</strong> refers to neural networks with many layers, capable of handling unstructured data like text and images — ChatGPT's underlying network has hundreds of billions of parameters. <strong>Generative adversarial networks (GANs)</strong> pit two networks against each other: a generator that creates fake data and a discriminator that tries to catch it, each improving the other through competition.</p>`},
+  {h:'Large language models and transformers', b:`<p>LLMs are deep learning networks purpose-built to predict and generate human language, built on <strong>transformer</strong> architecture. Transformers use <strong>self-attention</strong> to weigh every word in a sequence against every other word in parallel, which is what lets a model maintain context over long passages — the technical leap introduced in Google's 2017 paper "Attention Is All You Need."</p>
+  <p>Walking through how an LLM works: a customer message ("I haven't received my order") is converted into numerical vectors capturing semantic relationships; early network layers detect keywords, deeper layers infer intent; the model then calculates probabilities across possible intents and generates a coherent reply.</p>`},
+  {h:'How LLMs are trained: pre-training, fine-tuning, reinforcement learning', b:`<p>Three stages turn a raw architecture into a usable assistant:</p>
+  <ul>
+  <li><strong>Pre-training</strong> — the model ingests massive general-purpose data (books, articles, code) to learn broad statistical patterns of language, adjusting internal "weights" as it goes.</li>
+  <li><strong>Fine-tuning</strong> — the pre-trained model is further trained on a specialized data set (e.g. customer support transcripts) to align outputs with domain vocabulary and tone, turning a generalist LLM into a purpose-built assistant.</li>
+  <li><strong>Reinforcement learning</strong> — human evaluators score outputs for relevance, accuracy, and style, and those scores feed back into training to better match human expectations.</li>
+  </ul>`},
+  {h:'Prompt engineering', b:`<p>Prompt engineering is the practice of crafting inputs that guide a model toward the output you actually want — a well-worded brief rather than a vague ask. The module's own example makes the point: "Write about why sustainability is important" versus "Draft a one-paragraph executive summary of how our new solar-powered warehouse reduces energy consumption and supports our sustainability goals." The second produces something usable; the first produces filler.</p>`},
+  {h:'A brief history of AI: how did we get here', b:`<div class="chip-row">
+  <span class="chip">1950 · Turing test</span><span class="chip">1956 · "Artificial intelligence" coined</span><span class="chip">1966 · ELIZA, first chatbot</span><span class="chip">1997 · Deep Blue beats Kasparov</span><span class="chip">2012 · AlexNet / deep learning breakthrough</span><span class="chip">2014 · GANs introduced</span><span class="chip">2016 · AlphaGo beats Lee Sedol</span><span class="chip">2017 · Transformer architecture</span><span class="chip">2018–present · Rise of LLMs / GPT era</span><span class="chip">2023 · LangChain released</span>
+  </div>
+  <p>Alan Turing's 1950 question — "can machines think?" — produced the Turing test, still referenced in AI evaluation today. Six decades later, the 2017 transformer paper and the subsequent GPT lineage compressed that question into something organizations now have to answer operationally: not whether machines can think, but how to deploy them responsibly and affordably.</p>`},
+  {h:'The evolution of chatbots', b:`<p>Chatbots moved through four generations: <strong>basic, rule-based bots</strong> (keyword matching, scripted replies) → <strong>conversational agents</strong> of the early 2010s (Siri, Alexa, IBM Watson — genuine NLP, still narrow) → <strong>generative AI chatbots</strong> (transformer-based, handling larger and more complex queries with natural-sounding replies) → <strong>reasoning models</strong> (OpenAI's o3/o4 class, which spend more computation deliberating before answering, similar to a human analyst working through a problem).</p>`},
+  {h:'Reasoning models and chain-of-thought prompting', b:`<p><strong>Chain-of-thought prompting</strong> generates intermediate natural-language reasoning steps before a final answer, simulating human-style problem solving — deciding whether to expand into Market A or B by weighing market size, competition, and regulation as separate steps rather than jumping to a conclusion.</p>
+  <p>Reasoning models trade off longer processing time and higher compute cost for better performance on complex science, coding, and math tasks. They do not eliminate hallucination — OpenAI's own testing found its o4-mini model hallucinated more often than earlier ChatGPT versions on certain metrics, a reminder that more reasoning is not automatically more reliable.</p>`},
+  {h:'Agentic AI arrives', b:`<p>Unlike a chatbot that reacts to prompts, <strong>agentic AI</strong> acts autonomously and proactively toward a goal, with minimal human intervention. MIT's Dr. Abel Sanchez frames an AI agent simply as "a workflow with tasks, potentially involving humans" — useful use cases include automating customer experience, proactive sales intelligence, self-directed security monitoring, and supply chain automation.</p>
+  <div class="stat-tiles">
+  <div class="stat-tile"><div class="n">700 FTEs</div><div class="l">Klarna's AI assistant workload, month one</div></div>
+  <div class="stat-tile"><div class="n">25%</div><div class="l">Klarna repeat-inquiry reduction</div></div>
+  <div class="stat-tile"><div class="n">250 people</div><div class="l">Octopus Energy's chatbot workload equivalent</div></div>
+  </div>
+  <p>Both companies also reported higher customer satisfaction from the AI agent than from human agents on average — an early, concrete signal of where this module's Module 2 sequel (emerging agentic platforms) and Module 3 (connecting agents to real systems) are headed.</p>`},
+  {h:'What actually creates AI cost', b:`<p>Three levers drive AI system cost, explained through the module's own minivan analogy: buying one premium minivan for your own kids works, but buying a premium minivan for every kid in town is absurd at scale — the "best" model is not always the right deployment choice.</p>
+  <ul>
+  <li><strong>Compute infrastructure</strong> — GPUs, whether rented from a cloud provider or built in-house, are expensive and scale with model size.</li>
+  <li><strong>Model choice and tokens</strong> — the dominant usage-based cost driver. Both input and output are billed in tokens (roughly 0.75 words each), and pricing can vary <strong>500×</strong> between models for a similar task — GPT-4.5 at $150 per million output tokens versus GPT-4o mini at $0.60, a 250× spread.</li>
+  <li><strong>Energy</strong> — every prompt carries a carbon and electricity cost, which is why major AI providers are investing in alternative power sources like nuclear as usage scales.</li>
+  </ul>`},
+  {h:'Performance trade-offs: choosing wisely', b:`<p>Three trade-off categories should shape model selection, not raw capability:</p>
+  <ul>
+  <li><strong>Accuracy vs. cost</strong> — a medical diagnosis assistant may need a premium model; a routine customer-service bot usually doesn't.</li>
+  <li><strong>Speed vs. power</strong> — bigger models are slower; real-time chat applications may need to sacrifice some accuracy for acceptable latency.</li>
+  <li><strong>Context length vs. efficiency</strong> — more "memory" isn't free, though some models (GPT-4o, o3-mini) handle long context more efficiently than their context-window size alone would suggest.</li>
+  </ul>
+  <p>The module poses five questions before choosing a model: What's the minimum accuracy we need? How often will it run? Can caching or a cheaper tier work for some tasks? Does real-time performance matter? Does the task need long context, or can it work with short prompts? This is the exact toolkit applied in Assignment 1.1.</p>`},
+  {h:'Key terms from this module', b:`<table class="dtable"><tr><th>Term</th><th>Meaning</th></tr>
+  <tr><td>Tokens</td><td>Units of text (~3–4 characters, ~0.75 words) that models process and bill by, for both input and output.</td></tr>
+  <tr><td>Hallucination</td><td>When a model produces plausible-sounding output with no basis in its training data.</td></tr>
+  <tr><td>Fine-tuning</td><td>Further training a pre-trained model on smaller, domain-specific data to specialize it.</td></tr>
+  <tr><td>Self-attention</td><td>The transformer mechanism that weighs every token against every other token in parallel.</td></tr>
+  <tr><td>Chain-of-thought prompting</td><td>Guiding a model to produce step-by-step reasoning before its final answer.</td></tr>
+  <tr><td>Agentic AI</td><td>An AI system that autonomously sets and pursues goals with limited human supervision.</td></tr>
+  <tr><td>Caching</td><td>Temporarily storing frequent responses to avoid recomputing them — a direct cost lever on repeated queries.</td></tr>
+  </table>`}
+ ]},
+
+{num:2, title:'The Rise of Agentic AI and Emerging AI Platforms', tagline:'A tour of the platforms actually building agents today, and the vibe-coding shift in how software gets made.',
+ outcomes:['Compare emerging agentic AI platforms by origin, functionality, and adoption','Evaluate open-source versus closed-source trade-offs for agent infrastructure','Assess the strategic implications of vibe coding for software development at the enterprise level'],
+ tags:['Agent platforms','Vibe coding','Open source'],
+ assignmentRef:'2.1',
+ sections:[
+  {h:'Open source vs. closed source', b:`<p>Open-source software makes its source code publicly viewable, modifiable, and shareable — "the recipe, not just the dish" — offering transparency, control, community-driven evolution, and typically free use (though hosting or support may cost). Closed-source platforms are proprietary "black boxes," with code and training data restricted to the vendor or paying users.</p>`},
+  {h:'Five platforms compared: LangChain, CrewAI, Ollama, Codex, n8n', b:`<table class="dtable"><tr><th>Platform</th><th>Origin</th><th>What it's for</th></tr>
+  <tr><td>LangChain</td><td>Harrison Chase, late 2022</td><td>Open-source framework for building context-aware LLM applications — prompt templates, chains, agents, memory, retrieval modules.</td></tr>
+  <tr><td>CrewAI</td><td>João Moura, 2023</td><td>Open-source, Python-based multi-agent orchestration — agents with defined roles that collaborate like a team.</td></tr>
+  <tr><td>Ollama</td><td>Y Combinator W21 cohort</td><td>Runs LLMs locally for data privacy and near-instant latency — no "phoning home" to the cloud.</td></tr>
+  <tr><td>Codex</td><td>OpenAI, 2021; agentic relaunch May 2025</td><td>Autonomously decomposes coding tasks, reads codebases, fixes bugs, and proposes changes inside a sandboxed environment.</td></tr>
+  <tr><td>n8n</td><td>Jan Oberhauser, 2019</td><td>Open-source, self-hostable workflow automation — connects apps with conditional logic, not just simple triggers.</td></tr>
+  </table>
+  <p>Each carries real trade-offs: LangChain's flexibility comes with a steep learning curve and documentation churn; CrewAI has no visual builder and needs Python fluency; Ollama has faced remote-code-execution vulnerabilities (CVE-2024-37032); Codex's autonomous code changes raise the same overreliance risk as any AI-generated code.</p>`},
+  {h:'Vibe coding and the "vibe living" mindset', b:`<p>Vibe coding describes building software by describing what you want in natural language and iterating on AI-generated output, rather than hand-writing every line. It promises faster time-to-market, cost efficiencies, and market expansion — but enterprise adoption requires evaluating end-to-end workflows, planning for skill evolution rather than replacement, balancing democratized access with governance, and prioritizing tools with strong context management. Assignment 2.1 in this portfolio is a direct, hands-on test of this workflow.</p>`}
+ ]},
+
+{num:3, title:'Connecting Agents to Digital Ecosystems', tagline:'Where agent projects actually succeed or fail: legacy systems, safety discipline, and the Model Context Protocol that lets agents act, not just answer.',
+ outcomes:['Identify integration barriers between AI agents and existing enterprise systems','Apply human-in-the-loop safety principles to agent deployment','Explain how the Model Context Protocol (MCP) enables AI agents to act across applications','Evaluate fine-tuning techniques for building empathetic, brand-aligned virtual agents'],
+ tags:['MCP','Integration','Safety','IoT'],
+ assignmentRef:'3.1',
+ sections:[
+  {h:'What AI agents can do for business', b:`<p>Three concrete levers: <strong>increase efficiency</strong> (automating CV screening and candidate summarization in hiring), <strong>enhance accuracy</strong> (flagging inconsistencies in finance and compliance workflows), and <strong>improve responsiveness</strong> (24/7 IT support monitoring and escalation without waiting for the next business day).</p>`},
+  {h:'Key platforms: Slack, Notion, Discord', b:`<p><strong>Slack</strong> becomes a central workspace once integrated with calendars and trackers, organizing conversation by topic rather than burying it in inboxes. <strong>Notion</strong> is a flexible digital workspace — notebook, filing cabinet, and task list combined — that teams use to replace scattered documents and shared drives. <strong>Discord</strong> brings real-time text, voice, and video into a casual "digital clubhouse" format, well suited to distributed teams wanting fast, informal collaboration.</p>`},
+  {h:'Automation tools: Zapier, n8n, LangChain, Python', b:`<p><strong>Zapier</strong> connects apps with simple trigger-and-action "Zaps" (sell your 999th blouse, automatically reorder stock and notify logistics). <strong>n8n</strong> adds conditional branching logic — a river-level sensor can automatically alert emergency services, send SMS warnings, and notify officials within seconds. <strong>LangChain</strong> enables multistep reasoning and memory (a compliance agent that reads a regulatory update, cross-checks internal policy, and drafts an alert before Monday morning). <strong>Python</strong> is the fallback when no off-the-shelf tool fits — custom logistics routing that reacts to live traffic and warehouse scheduling in real time.</p>`},
+  {h:'Safety and human-in-the-loop', b:`<p>Autonomous does not mean unsupervised. Every automation example above — reordering 1,000 units, issuing evacuation alerts, reconfiguring financial compliance, rerouting logistics — needs a human-in-the-loop checkpoint, because when that step is skipped, mistakes are not just made, they're scaled.</p>`},
+  {h:'Accidents caused by automation', b:`<table class="dtable"><tr><th>Case</th><th>What happened</th></tr>
+  <tr><td>Knight Capital Group, 2012</td><td>A software deployment error sent erroneous trading orders into the market, losing roughly <strong>$440 million in 45 minutes</strong> and leading to the firm's acquisition.</td></tr>
+  <tr><td>AI hiring / résumé screening</td><td>University of Washington research found résumé-screening AI favored white-associated names 85% of the time and never favored Black male-associated names over white male-associated names.</td></tr>
+  <tr><td>Optus (Australia), 2023</td><td>An automated shutdown triggered by a Border Gateway Protocol event caused a 12-hour nationwide outage affecting 10M+ customers and roughly AU$2 billion in parent-company market value.</td></tr>
+  </table>
+  <p>Strategies for safe deployment: define clear objectives aligned to organizational values, monitor performance continuously, implement access controls that restrict agent capability, and make agent decision-making transparent to users.</p>`},
+  {h:'Integration barriers: legacy systems, data, performance', b:`<p>Three structural barriers slow AI integration into existing enterprise software: <strong>legacy architecture constraints</strong> (limited flexibility, often requiring middleware bridges rather than a rebuild); <strong>data compatibility issues</strong> (extra effort to clean and transform data, fragmented insights across siloed systems); and <strong>performance issues</strong> (high latency and strained infrastructure under new AI workloads). Organizational responses include system audits, deliberate middleware and API development, data governance programs, and performance/infrastructure planning — executed through phased, pilot-driven rollouts rather than a single big-bang launch.</p>`},
+  {h:'The Model Context Protocol (MCP)', b:`<p>MCP is an open standard that lets AI agents interact with external tools and data sources securely and consistently, shifting software from user-interface navigation toward <strong>intent-based interaction</strong> — instead of manually paginating a document and alphabetizing a list, you simply say so.</p>
+  <p><strong>The Spotify example:</strong> a request like "make me a birthday playlist from every year since 1985" requires an agent to (1) parse intent into structured operations, (2) access external data such as historical chart information, (3) match songs to Spotify's catalog via API, (4) create the playlist with authenticated access, (5) insert tracks in order, and (6) confirm the outcome while retaining context for follow-up requests. That six-step chain is <strong>context-aware orchestration</strong> — the model doesn't just generate text, it executes a multistep process end to end.</p>
+  <p>MCP is expanding into <strong>Salesforce</strong> (CRM data access and automated sales/service tasks), <strong>WordPress</strong> (content and SEO management), <strong>Google Workspace</strong> (scheduling, email drafting, document analysis across Gmail/Calendar/Docs), and <strong>Figma</strong> (translating designs into development-ready components) — each reinforcing the same strategic implications: scalability, efficiency, agility, and innovation.</p>`},
+  {h:'Fine-tuning for empathy in customer-facing agents', b:`<p>Five fine-tuning approaches, each teaching a model to respond in a way that feels human and on-brand:</p>
+  <table class="dtable"><tr><th>Technique</th><th>What it does for empathy</th></tr>
+  <tr><td>Supervised fine-tuning (SFT)</td><td>Trains on labeled examples of empathic phrasing so the model learns when and how to express sympathy.</td></tr>
+  <tr><td>Instruction-tuning</td><td>Teaches the model to follow explicit tone instructions ("respond in a reassuring tone"), enforcing brand voice.</td></tr>
+  <tr><td>RLHF</td><td>Human evaluators upvote or downvote responses, reinforcing genuinely helpful, emotionally attuned replies.</td></tr>
+  <tr><td>Direct preference optimization (DPO)</td><td>Trains on paired preferred-vs-rejected outputs — simpler and cheaper than full RLHF, without a separate reward model.</td></tr>
+  <tr><td>Parameter-efficient fine-tuning (PEFT)</td><td>Updates only a small subset of parameters (adapters), enabling rapid iteration on new cultural norms or slang.</td></tr>
+  </table>
+  <p>Building genuine empathy into an agent means training on four dimensions: an emotional lexicon ("I understand how frustrating this is"), cultural and demographic sensitivity, contextual nuance (when to shift from reassurance to action), and clear escalation triggers for legally sensitive or emotionally volatile conversations.</p>`},
+  {h:'IoT-AI ecosystems and agent coordination models', b:`<p>Intelligent IoT systems run a three-layer architecture: a <strong>device layer</strong> (sensors and actuators), a <strong>communication layer</strong> (MQTT, CoAP, 5G/WiFi 6, mesh networking), and an <strong>intelligence layer</strong> where AI agents make real-time autonomous decisions and detect patterns humans couldn't catch at scale.</p>
+  <p>Coordinating many agents across a large IoT deployment uses either <strong>distributed orchestration</strong> (specialized agents each own a device cluster) or <strong>hierarchical orchestration</strong> (a master agent directs specialized sub-agents) — the latter illustrated by Walmart's smart-store deployment: 15,000 cameras and RFID sensors on 2 million products across 200 stores, coordinated by AI agents for inventory, security, and customer experience, yielding a 35% reduction in out-of-stock incidents and 15% lower energy costs.</p>`},
+  {h:'Security and scalability for IoT-AI systems', b:`<p>Trustworthy IoT-AI systems need security at every layer — certificate-based device authentication, secure boot, network segmentation isolating IoT devices from core business systems — alongside data-privacy discipline (minimization, on-device processing, anonymization) and agent-specific controls: role-based access limiting what an agent can do, audit logging of every agent decision, and behavioral monitoring for anomalies.</p>`},
+  {h:'Key terms from this module', b:`<table class="dtable"><tr><th>Term</th><th>Meaning</th></tr>
+  <tr><td>Model Context Protocol (MCP)</td><td>A defined way to supply background information and tool access to an AI model so it can act, not just respond.</td></tr>
+  <tr><td>Intent-based interaction</td><td>Designing systems to understand a user's true goal rather than react to literal, step-by-step commands.</td></tr>
+  <tr><td>Middleware</td><td>Software that connects different applications, enabling communication and data-sharing without a full rebuild.</td></tr>
+  <tr><td>Edge case</td><td>A nonstandard scenario — limited connectivity, unusual requests — that tests the flexibility of an integration.</td></tr>
+  <tr><td>Human-in-the-loop</td><td>Combining AI automation with human review wherever judgment or accuracy is critical.</td></tr>
+  <tr><td>Context-aware orchestration</td><td>Automatically coordinating a multistep task across tools based on real-time information and prior context.</td></tr>
+  </table>`}
+ ]},
+
+{num:4, title:'Cybersecurity: Classic Scenarios, Agentic Threats', tagline:'From a single phished HR manager to deepfakes and prompt injection — the Cyber Kill Chain and NIST framework applied to AI-specific threats.',
+ outcomes:['Analyze organizational AI systems and workflows to identify cybersecurity risks using the NIST Cybersecurity Framework','Evaluate current security practices to determine gaps in access control, monitoring, response, and recovery','Develop a structured AI risk and security plan with stakeholders, training, and incident response procedures','Recommend specific actions to improve organizational readiness across Identify, Protect, Detect, Respond, and Recover'],
+ tags:['Cyber Kill Chain','NIST CSF','Deepfakes','Prompt injection'],
+ assignmentRef:'4.1',
+ sections:[
+  {h:'Case study: Lisa Mendez — the classic era of cybersecurity risk', b:`<p>Lisa Mendez, HR manager at a mid-sized investment firm, attends a virtual HR tech webinar and exchanges contacts with new peers. A friendly follow-up email arrives with an "HR Connect, Final Attendee List.xlsx" attachment. Nothing looks wrong — the tone is warm, the branding familiar. Curious to see if her contacts are listed, she opens the file and enables macros to "view the full sheet." That single click installs a remote access trojan (RAT).</p>
+  <p>Over the next week, attackers use her compromised credentials to reach a shared folder of archived onboarding documents — scanned IDs and bank details for high-net-worth clients — then generate a trusted-looking service request that tricks finance into initiating several "urgent" wire transfers. By the time an unusual offshore login is flagged, <strong>over $4.3 million</strong> has been siphoned from investor accounts, triggering a client exodus and regulatory scrutiny. Lisa never suspected she was the entry point.</p>
+  <div class="callout warn">This is a human-triggered, rule-based attack — the classic era. The module's pivot point: as organizations move from digitization to AI-injected transformation, the risk shifts from user error toward system-level deception and autonomy-driven failure.</div>`},
+  {h:'The current era: deepfakes, impersonation, prompt injection', b:`<p><strong>Deepfakes</strong> are synthetic audio/video built with GANs or diffusion models. In January 2025, a retiree lost more than $300,000 to a deepfake video of Elon Musk promoting a fake crypto platform; in January 2024, an AI voice clone of President Biden robocalled New Hampshire voters urging them to skip the primary. In a business context, a deepfake of a CEO announcing a mass layoff, released before anyone can correct the narrative, could move markets in minutes.</p>
+  <p><strong>Impersonation</strong> is targeted and interactive rather than broadcast. In 2019, an AI voice clone of a German CEO convinced a UK executive to wire $243,000. In early 2024, a Hong Kong finance employee joined a video call with what looked like senior executives — all deepfake clones — and authorized 15 transfers totaling roughly US$25.6 million before the breach was discovered.</p>
+  <p><strong>Prompt injection</strong> inserts hidden or malicious instructions into an AI system's input, attacking its decision-making logic with language rather than code. A Stanford student used it against Microsoft's Bing chatbot ("Sydney") to get it to reveal its own programming; UC San Diego researchers found a vulnerability ("Imprompter") that leaked personal chat logs to an attacker-controlled domain with an ~80% success rate.</p>`},
+  {h:'The Cyber Kill Chain, mapped to AI-era attacks', b:`<table class="dtable"><tr><th>Phase</th><th>Classic example</th><th>AI-era example</th></tr>
+  <tr><td>1. Reconnaissance</td><td>Scraping public info on a target</td><td>AI tools scrape social profiles to build detailed employee personas for personalized deepfake or phishing attacks</td></tr>
+  <tr><td>2. Weaponization</td><td>Building an infected file</td><td>Generative AI creates convincing phishing emails or a deepfake CEO video requesting urgent action</td></tr>
+  <tr><td>3. Delivery</td><td>Sending the malicious email</td><td>Deepfake video distributed via email or social media directing employees to a malicious link</td></tr>
+  <tr><td>4. Exploitation</td><td>Victim clicks the link</td><td>Employee trusts an AI-generated message and transfers funds or shares credentials</td></tr>
+  <tr><td>5. Installation</td><td>Malware installs a backdoor</td><td>AI-assisted malware adapts to the environment and evades detection automatically</td></tr>
+  <tr><td>6. Command and control</td><td>Attacker takes remote control</td><td>AI automates C2 operations, mimicking normal user behavior to evade detection</td></tr>
+  <tr><td>7. Actions on objectives</td><td>Data exfiltrated</td><td>Stolen data trains further attacks or generates deepfake content for reputational damage</td></tr>
+  </table>`},
+  {h:'The NIST Cybersecurity Framework, applied to AI', b:`<p>Five categories, reframed for a world where the "employee" accessing your systems might be an agent:</p>
+  <table class="dtable"><tr><th>Category</th><th>What changes with AI</th></tr>
+  <tr><td>Identify</td><td>New AI tools can access internal data automatically — track them like you would a new employee; know which business functions are now AI-dependent.</td></tr>
+  <tr><td>Protect</td><td>AI agents with broad access can unintentionally leak or misuse data; access controls, awareness training on deepfakes, and data-type restrictions all need an AI-specific pass.</td></tr>
+  <tr><td>Detect</td><td>AI tools can behave abnormally due to bugs, prompt manipulation, or poor training data — continuous monitoring has to include AI service activity, not just network traffic.</td></tr>
+  <tr><td>Respond</td><td>AI incidents don't look like classic hacks; response plans need AI-specific scenarios (model misuse, data leakage) and pre-approved communications language.</td></tr>
+  <tr><td>Recover</td><td>AI tools often depend on external services — plan for what happens if those go down, and run a "failure postmortem" even for near-misses.</td></tr>
+  </table>
+  <div class="callout">Two questions every leader can ask without technical background: "Can we pause or disable an AI system in an emergency — who controls that?" and "Can we audit what our AI tool did during an incident?" If the answer to either is unclear, that's the gap Assignment 4.1 is meant to surface.</div>`}
+ ]},
+
+{num:5, title:'AI Agents by Business Function', tagline:'A five-stage maturity cycle, a crawl-walk-run adoption model, and real deployments across HR, finance, IT, and clinical care.',
+ outcomes:['Describe the organizational context relevant to a proposed AI-driven product design initiative','Summarize a current product design workflow to establish a baseline for improvement','Select an appropriate AI technology for a design process based on its capabilities and relevance','Develop a structured plan for integrating AI into a workflow to improve efficiency, effectiveness, or quality'],
+ tags:['AI maturity cycle','Crawl-walk-run','Shadow AI','Centralized vs. embedded'],
+ assignmentRef:'5.1',
+ sections:[
+  {h:'The five-stage AI maturity cycle', b:`<p>Developed by Dr. Abel Sanchez, inspired by OpenAI's framework for scaling AI use cases:</p>
+  <table class="dtable"><tr><th>Stage</th><th>What happens</th></tr>
+  <tr><td>1 · Identify opportunities</td><td>Find repetitive tasks or bottlenecks worth automating or augmenting; secure stakeholder buy-in by demonstrating tangible benefit.</td></tr>
+  <tr><td>2 · Teach AI fundamentals</td><td>Build common literacy — prompting, interpreting outputs, understanding limitations — plus governance policy to prevent Shadow AI.</td></tr>
+  <tr><td>3 · Map workflows</td><td>Break existing processes into discrete steps to see where specialized agents could automate a piece of it; score prototypes on effort, value, and risk.</td></tr>
+  <tr><td>4 · Provide enablement and resources</td><td>Integrate agents into secure enterprise platforms with real data pipelines and dashboards; executive sponsorship matters here.</td></tr>
+  <tr><td>5 · Scale and share success</td><td>Publish case studies with real metrics, form communities of practice, and embed AI into standard operating procedure.</td></tr>
+  </table>`},
+  {h:'Shadow AI: the risk of unsanctioned adoption', b:`<p>Democratized AI tools let employees access advanced capability without IT's knowledge or permission. A joint CybSafe / National Cybersecurity Alliance survey of 7,000 people found <strong>38%</strong> had shared sensitive workplace data through unauthorized AI tools — rising to 46% among Gen Z and 43% among Millennials — and <strong>52%</strong> had received no training on using AI safely at all.</p>
+  <p>Mitigation runs on three tracks: <strong>policy</strong> (sanctioned tool lists, usage audits, an AI governance "Center of Excellence"), <strong>technology</strong> (data loss prevention, role-based access controls, log review), and <strong>culture</strong> (continuous education, safe experimentation environments, visible leadership modeling).</p>`},
+  {h:'The crawl, walk, run model for AI maturity', b:`<p>Where the five-stage cycle describes <em>what</em> to build, crawl-walk-run describes <em>how fast and how autonomously</em> to build it:</p>
+  <table class="dtable"><tr><th>Phase</th><th>What's happening</th></tr>
+  <tr><td>Crawl</td><td>Small pilots automating routine work (data entry, invoicing); data hygiene investment; preliminary governance policy, not yet enforced org-wide.</td></tr>
+  <tr><td>Walk</td><td>Human-in-the-loop recommendation systems (next-best-action in sales/marketing); AI chatbots in customer service; enhanced data pipelines for scaled workflows.</td></tr>
+  <tr><td>Run</td><td>Fully agentic, autonomous systems; a Center of Excellence oversees governance and model monitoring; continuous KPI-driven refinement of agent behavior.</td></tr>
+  </table>
+  <div class="callout">This is the same underlying idea that shows up as CareNav's version-gated v1 → v2 → v3 ladder in Assignments 5.1, 7.1, and the capstone — Module 5 gives it its name.</div>`},
+  {h:'Generative AI in the product development lifecycle', b:`<p>Four industry examples of generative AI augmenting, not replacing, human designers: <strong>Nike's A.I.R. project</strong> generates and iterates footwear designs from athlete performance data; <strong>Tesla</strong> explores thousands of component-design variations against aerodynamics and weight constraints; <strong>L'Oréal</strong> (with IBM) accelerates skincare formulation while cutting material waste; <strong>Crocs</strong> (with ABLO) lets customers co-create Jibbitz charms from a photo or text prompt. In each case, generative AI produces options under human direction — it doesn't decide.</p>`},
+  {h:'Supercharging with agentic AI', b:`<p>Agentic AI adds the capacity to operate across time and act independently toward a goal. <strong>Oracle's</strong> sales agents decide what to write, why, and when to send it — no prompting at each step. <strong>GM</strong> (with Autodesk) runs a closed loop where engineers set performance goals and the AI generates, evaluates, and refines design variants on its own, feeding results into the next iteration. <strong>Hyperganic</strong> autonomously optimized a rocket engine's internal cooling structure to a hot-fire-tested prototype in weeks. <strong>IKEA</strong> (with SPACE10) used an agent trained on decades of catalog archives as a creative collaborator exploring new furniture directions, not just a single-image generator.</p>`},
+  {h:'Clinical decision support: the healthcare parallel to CareNav', b:`<p>This module's own healthcare examples are the direct ancestor of the CareNav Agent case study built across Assignments 4.1–8.1:</p>
+  <ul>
+  <li><strong>Microsoft's AI Diagnostic Orchestrator (MAI-DxO)</strong> emulates a panel of physicians and reached 85% accuracy on a complex case challenge — more than four times better than physicians, using fewer resources.</li>
+  <li><strong>Duke University's Sepsis Watch agent</strong> continuously monitors hundreds of vital-sign variables and can detect sepsis hours before it becomes clinically obvious.</li>
+  <li><strong>Aidoc</strong> and <strong>RadNet</strong> triage radiology images, flagging life-threatening findings (brain bleeds, clots) for urgent human review while pre-screening routine scans.</li>
+  <li><strong>Epic's Bed Management agent</strong> autonomously assigns incoming patients to the most appropriate bed in real time, reducing ED wait times — functionally the operational twin of CareNav's own door-to-triage KPI.</li>
+  </ul>`},
+  {h:'Centralized vs. embedded agent architecture', b:`<table class="dtable"><tr><th></th><th>Centralized</th><th>Embedded</th></tr>
+  <tr><td>Deployment</td><td>Communication platform (Slack, Teams)</td><td>Departmental tools (Excel, Figma, a clinical intake system)</td></tr>
+  <tr><td>Scope</td><td>Broad, general-purpose</td><td>Narrow, domain-specific</td></tr>
+  <tr><td>Governance</td><td>Easier to control and audit</td><td>Harder to standardize across instances</td></tr>
+  <tr><td>Cost</td><td>Lower initial cost</td><td>Higher ongoing maintenance</td></tr>
+  </table>
+  <div class="callout link1">The module's own U.S. healthcare example: a centralized agent handling general scheduling FAQs is easy to keep HIPAA-compliant, but an agent embedded directly in a patient intake or billing system — generating, storing, or processing protected health information without encryption, access logs, and a business associate agreement — sharply increases regulatory exposure. This is the exact tension CareNav's governance plan resolves under PHIPA in Assignment 7.1: centralize sensitive data access through a governed layer even as specialized capability gets embedded closer to the clinical workflow.</div>`}
+ ]},
+
+{num:6, title:'The Last Mile: From Pilot to Practice', tagline:'Why 70–90% of AI pilots stall before production, told through a fictional clinic voice agent that fails for reasons no pilot could predict.',
+ outcomes:['Explain why AI pilots succeed in controlled conditions but stall during enterprise-wide rollout','Design KPIs specific to voice AI beyond standard accuracy benchmarks','Apply change management frameworks (ADKAR, Kotter) to overcome organizational resistance to AI agents','Diagnose the technical and human causes of failed AI deployments'],
+ tags:['Pilot purgatory','Voice AI KPIs','ADKAR','Kotter'],
+ assignmentRef:'6.1',
+ sections:[
+  {h:'Case study: Maple Heights Family Clinic — when the pilot lies to you', b:`<p>Maple Heights, a mid-sized clinic seeing ~150 patients a day, pilots an AI voice agent to handle appointment booking, hours, and call triage. The pilot runs on scripted staff test calls — clean, well-formed sentences — and performs flawlessly. Leadership approves a live rollout.</p>
+  <p>Real deployment breaks almost immediately: elderly callers speak slowly or unclearly, a mother tries to reschedule a shot while her GPS talks over her, and the agent — trained only on tidy inputs — repeats itself and hangs up. The scheduling API returns stale availability under load, causing double-bookings; patients arrive expecting a doctor who isn't in the system. Escalation only triggers on exact phrases like "speak to someone" — so a caller who says "I need to talk to the nurse about my blood sugar" gets looped back to the main menu, and a distressed post-discharge patient hangs up without help. Within a week, public reviews read "this clinic has replaced people with a robot that does not listen."</p>
+  <div class="callout warn"><strong>The module's verdict:</strong> "The agent could understand words, but not people. And in a healthcare setting, that gap was more than a technical failure: it was a breach of trust." No stress testing had covered overlapping audio, slang, or accents — and there was no dashboard, no failure tagging, no structured feedback loop. This is precisely the failure mode CareNav's Assignment 6.1 KPI framework and Assignment 7.1 sandbox testing are built to catch before go-live, not after.</div>
+  <p><strong>The contrast case — Cencora:</strong> an AI voice agent named Eva (built by Infinitus) automated benefits verification and drug-service calls, handling the workload of 100+ full-time staff at four times the speed, with every call recorded and spot-checked and uncertain cases triaged to human review. The difference from Maple Heights wasn't the technology — it was the monitoring, quality control, and escalation discipline built in from the start.</p>`},
+  {h:'Why pilots succeed but deployments stall: "pilot purgatory"', b:`<p>This pattern affects an estimated <strong>70–90%</strong> of AI initiatives — for every 33 prototypes built, only about four reach production. Pilots succeed because they run in <strong>narrow, controlled scope</strong> on curated data, inside <strong>sandbox conditions</strong> that avoid real integration and compliance burdens, against <strong>defined success metrics</strong> set up front, on <strong>lightweight 6–12 week timelines</strong> that reward speed over durability. None of that resembles the messy, high-variability conditions of full deployment.</p>
+  <p>Deployments then stall for four recurring reasons: <strong>complex integration</strong> with siloed legacy systems (EMRs, CRMs) that pilots bypassed; a <strong>technology-over-business focus</strong> that creates an "ROI clarity gap" once the demo has to become a business case; <strong>insufficient onboarding</strong> — expecting an agent to master complex tasks on day one, the way you wouldn't expect it of a new hire; and <strong>underestimated infrastructure cost</strong>, with AI compute costs projected to rise 89% between 2023 and 2025.</p>
+  <div class="callout">Two further cautionary cases: Amazon scrapped an internal hiring tool after it learned to prefer male candidates from historical résumé data. IBM Watson Health's cancer-treatment recommendations were in many cases unsafe or incorrect, and the project was shut down in 2021. Both are reminders that a technically impressive pilot is not the same claim as a safe, ready-to-scale system.</div>`},
+  {h:'KPIs built specifically for voice AI', b:`<p>Standard text metrics like word error rate aren't enough, because voice agents operate in a probabilistic, multi-turn environment shaped by background noise, accents, and speech speed. Dedicated KPIs include:</p>
+  <ul>
+  <li><strong>Conversation containment rate</strong> — percentage of calls fully resolved without human intervention</li>
+  <li><strong>First call resolution</strong> — whether the issue is solved in a single interaction</li>
+  <li><strong>Customer effort score</strong> — friction experienced, heavily driven by latency and how naturally the agent handles interruptions</li>
+  <li><strong>Turn-detection accuracy</strong> — whether the agent correctly identifies when a caller has actually finished speaking versus paused to think</li>
+  </ul>
+  <div class="callout link1">This is the module-level source for the accent/multi-language voice-recognition risk and the confidence-threshold fallback built into CareNav's operational risk register in Assignment 6.1 — CareNav's <70% confidence → hand off to a human nurse threshold is a direct application of this section's turn-detection and containment-rate logic.</div>`},
+  {h:'Change management: ADKAR and Kotter, applied to AI', b:`<p>Resistance to AI agents is, per this module, fundamentally a human problem, not a technical one — up to 70% of change programs fail from employee pushback or weak management support, and 74% of workers in some surveys fear AI could take their job. Two frameworks structure the response:</p>
+  <table class="dtable"><tr><th>ADKAR</th><th>Kotter's 8 steps</th></tr>
+  <tr><td>Awareness of why the agent is needed</td><td>Create urgency around competitive pressure</td></tr>
+  <tr><td>Desire to participate in the change</td><td>Build a guiding coalition of AI champions</td></tr>
+  <tr><td>Knowledge of how to work with the agent</td><td>Develop and communicate a clear vision</td></tr>
+  <tr><td>Ability to apply new skills</td><td>Empower action; generate short-term wins</td></tr>
+  <tr><td>Reinforcement to sustain the change</td><td>Consolidate gains; anchor changes in culture</td></tr>
+  </table>
+  <p>This is the same ADKAR structure applied to CareNav's clinician trust-building program in Assignment 6.1 and the capstone's change-management section — the override-rate intervention (upskilling workshops, updated reference guides, targeted calibration) is Awareness → Knowledge → Reinforcement in practice.</p>`}
+ ]},
+
+{num:7, title:'Governance, Compliance, and Agent Testing', tagline:'From regulation to sandbox to sign-off: what has to be true before an AI system is allowed to go live, advance, or keep running.',
+ outcomes:['Map applicable regulatory frameworks (e.g. GDPR, CCPA, HIPAA-equivalents) to an AI use case','Design a three-part testing strategy: sandboxing, A/B testing, and safety checks','Build a governance structure with named accountability and version-gate sign-offs'],
+ tags:['Regulation','Testing strategy','Sign-off matrix'],
+ assignmentRef:'7.1',
+ sections:[
+  {h:'Applicable regulations, mapped not assumed', b:`<p>The module's core discipline is jurisdiction-matching: a system built for a Canadian public-sector context is governed primarily by Canadian and provincial privacy law, with GDPR, CCPA, and HIPAA treated as international best-practice benchmarks rather than binding law unless the organization actually operates across those borders. Getting this mapping wrong — applying the wrong law's obligations, or missing the real one — is treated as a foundational governance failure, not a technicality.</p>`},
+  {h:'Three-part testing strategy', b:`<p><strong>Sandboxing</strong> isolates risk using synthetic or de-identified data only. <strong>A/B testing</strong> measures real-world impact against a control, with one variable changed at a time so causation can actually be isolated. <strong>Safety checks</strong> — layered defenses including rule-based filters, workflow checkpoints, human-in-the-loop confirmation, and sampled AI-as-judge review — catch what the other two miss. All three must pass before any deployment gate opens; deployment is a gate, not a date on a calendar.</p>`},
+  {h:'Governance structure and sign-off accountability', b:`<p>No single function owns AI governance. A named sign-off matrix distributes accountability across clinical/business, privacy, technical, security, and legal roles, with each version-advancement gate requiring specific, date-stamped sign-offs — and the highest-autonomy gate requiring every accountable role simultaneously, not a subset.</p>`}
+ ]},
+
+{num:8, title:'Ethics and Capstone', tagline:'Fairness, transparency, accountability, and workforce impact — the lens the whole course gets evaluated through, plus the capstone synthesis.',
+ outcomes:['Apply an ethical framework — fairness, transparency, accountability, privacy — to an AI deployment','Evaluate workforce disruption risk in AI-driven automation','Synthesize prior coursework into a single, leadership-ready AI adoption plan'],
+ tags:['Ethics','Workforce impact','Capstone'],
+ assignmentRef:'8.1',
+ sections:[
+  {h:'Four ethical principles applied to a real system', b:`<p><strong>Fairness and nondiscrimination</strong> — actively test for and correct disparities the system might replicate from historical data, don't just hope training data is neutral. <strong>Transparency and explainability</strong> — a significant automated decision needs an explanation a non-technical person can actually use. <strong>Accountability</strong> — a named human, not the model, is accountable for high-stakes outcomes. <strong>Privacy and data stewardship</strong> — collect only what's needed, for only the purpose disclosed.</p>`},
+  {h:'Workforce disruption as an ethical question, not just an HR one', b:`<p>The module uses the Commonwealth Bank of Australia's 2025 reversal of an AI voice-bot rollout as a cautionary case: replacing rather than augmenting frontline staff, without adequate human-factor planning, produced worse outcomes on both the human and operational side. The design lesson carried into the capstone: an override rate that falls too low is a warning sign of automation bias, not a success metric.</p>`},
+  {h:'The capstone: synthesis, not a new project', b:`<p>The capstone deliverable (Assignment 8.1, detailed on its own page in this portfolio) is explicitly a consolidation exercise — pulling together the use case, risk plan, design process, KPIs, and governance structure built across the course into one leadership-ready AI adoption plan, rather than starting a new initiative from scratch.</p>`}
+ ]}
+];
+
+const ASSIGNMENTS = [
+{id:'1-1', num:'1.1', title:'Evaluating the Cost of AI Systems', module:1, date:'Submitted May 18, 2026',
+ useCase:'Employee claim submission — provincial Workers\' Compensation Board (WCB)',
+ tags:['Cost modeling','Token pricing','WCB'],
+ sections:[
+  {h:'What was envisioned', b:`<p>A claim-intake assistant for a provincial Workers' Compensation Board: guiding an injured worker through their initial claim by eliciting incident details, identifying which medical and employer documents are required, generating a structured summary for a human adjudicator, and answering routine status and benefit-eligibility questions in plain language. The goal was to shorten intake time and reduce call-centre load, while keeping every adjudication decision with a human officer.</p>`},
+  {h:'Parameters tested', b:`<p>Four levers were varied: input length (~150 tokens for short status queries vs. ~500 tokens for full incident narratives), output length (~200 tokens for FAQ replies vs. ~700 tokens for guided intake summaries), call volume (10,000/month for a regional pilot vs. 1,000,000/month province-wide), and model tier — GPT-4o mini, Claude Sonnet 4.6, Claude Opus 4.7, and GPT-4 Turbo — using May 2026 published pricing.</p>`},
+  {h:'Cost comparison (500 input + 700 output tokens per call, May 2026 list prices)', b:`<table class="dtable"><tr><th>Model</th><th>Input $/1M</th><th>Output $/1M</th><th>Cached in $/1M</th><th>Cost / 10K calls</th><th>Cost / 1M calls</th></tr>
+  <tr><td>GPT-4o mini (OpenAI)</td><td>$0.15</td><td>$0.60</td><td>$0.075</td><td><strong>$4.95</strong></td><td><strong>$495</strong></td></tr>
+  <tr><td>Claude Sonnet 4.6 (Anthropic)</td><td>$3</td><td>$15</td><td>$0.30</td><td><strong>$120</strong></td><td><strong>$12,000</strong></td></tr>
+  <tr><td>Claude Opus 4.7 (Anthropic)</td><td>$5</td><td>$25</td><td>$0.50</td><td><strong>$200</strong></td><td><strong>$20,000</strong></td></tr>
+  <tr><td>GPT-4 Turbo (OpenAI)</td><td>$10</td><td>$30</td><td>$5</td><td><strong>$260</strong></td><td><strong>$26,000</strong></td></tr>
+  </table>
+  <p style="font-size:13.5px; color:var(--ink-faint);">Calculation: (input tokens × input rate + output tokens × output rate) per call × call volume. Cached-input rates would reduce the input portion by up to 90% on Claude models; batch-API would apply a further 50% discount on non-real-time workloads.</p>
+  <div class="callout">At 10,000 calls/month the cost ranged from roughly $5 to $260 — a more than 50× spread for identical workload. At 1,000,000 calls/month, the same task cost $495 versus $26,000.</div>`},
+  {h:'What would still be needed to finalize the decision', b:`<ul>
+  <li>Accuracy benchmarks on bilingual (English/French) claim narratives</li>
+  <li>Latency targets per channel</li>
+  <li>PIPEDA and provincial data-residency requirements</li>
+  <li>Batch-API eligibility for non-real-time adjudication summaries</li>
+  <li>The cost of a single misclassified claim — which pure $/token analysis cannot capture</li>
+  </ul>`},
+  {h:'AI tools used (per MIT citation policy)', b:`<p>Claude (Anthropic), accessed May 18, 2026, https://claude.ai. Prompt: "Draft a 150–300 word reflection for MIT Assignment 1.1 (Evaluating the Cost of AI Systems) using an employee claim submission use case for a provincial Workers' Compensation Board."</p>
+  <p>Verification and integration: pricing figures were cross-checked against the course's <em>AI_Model_Pricing_Comparison_2026.xlsx</em> reference sheet; cost arithmetic was recomputed independently. Limitations: published per-token rates exclude vision, extended-thinking, and fine-tuning surcharges, and do not reflect contractual or government-procurement discounts that would apply in a real WCB deployment.</p>`}
+ ]},
+
+{id:'2-1', num:'2.1', title:'Vibe Coding', module:2, date:'Submitted May 26, 2026',
+ useCase:'Mental health discovery platform for middle schoolers (ages 10–15), Toronto GTA',
+ tags:['Vibe coding','ChatGPT vs Claude','Empathy-first design'],
+ sections:[
+  {h:'The brief', b:`<p>Generate a landing page and working HTML prototype, in two different tools, for middle school kids (ages 10–14) in the Toronto GTA area who are facing challenges they can't yet articulate — designed as a kid-friendly quiz/game format that gently reveals what they're dealing with, rather than diagnosing it clinically.</p>`},
+  {h:'Scenario 1 — ChatGPT', b:`<p><strong>Prompt iteration 1:</strong> "Create a landing page for middle school kids, community, aged 10 to 14 years, in Toronto GTA area for kids who are facing issues in their growing ages in some form or the other but cannot articulate it. Make it like a kid-friendly quiz format where they play a game to reveal the challenges they are secretly facing unbeknownst to them."</p>
+  <p><strong>Prompt iteration 2:</strong> "I now want to create an implementation of the user interface. Please create the HTML code." Result: a functional HTML prototyping file.</p>`},
+  {h:'Scenario 2 — Claude', b:`<p>The identical two-step prompt sequence was run in Claude to compare output quality and design instincts between tools, also producing a functional HTML prototyping file for the landing page.</p>`},
+  {h:'Summary: vibe coding — designing AI solutions with empathy first', b:`<p>Vibe coding represents a shift in how AI application development works: not just the technical specifications change, but the depth of engagement with user needs and emotions, paired with a rapid iterative loop. Designs are easier to create and connect with users faster, closing the feedback loop more quickly. This human-centred philosophy directly shaped the product built here — a mental health discovery platform for middle schoolers that presents a non-threatening private quiz, framed as a quest, that helps a child discover (rather than be diagnosed with) the challenges they're facing but unable to share. Instead of clinical language, the interface uses age-appropriate colours, friendly visuals, and conversational questions.</p>
+  <p>Organizations can take four things from this approach: lead with user research, build genuinely empathetic products, prioritize privacy and trust, and always surface a confidential action pathway for anyone who needs one.</p>`},
+  {h:'Platform selection: a hybrid case', b:`<p>A hybrid approach works best here: open-source gives transparency and auditability of the algorithm when handling psychological data belonging to minors, while closed-source platforms offer integrated compliance, enterprise-grade security, and scalability. Neither alone is sufficient for a product handling sensitive data about children.</p>`},
+  {h:'Instructor feedback', b:`
+  <div class="feedback"><div class="who">Thuy Pham — Learning Facilitator, May 27</div><p>"I think that you must have dragged and dropped your files with your local folder access to the PDF file, so I wasn't able to open them. But that's fine because your screenshots helped me see the results (except for the Excel file). For additional files, it's better to upload them separately. I like the fact that you tested this assignment with two different tools. As I'm preparing my slides for office hour #3, and because you shared your results in the shared folder, I hope you're fine that I show your results during my office hour. I also appreciate that you mentioned empathy — I might discuss that topic in a future office hour."</p></div>
+  <div class="feedback"><div class="who">Shagoon Sarita Panda — reply</div><p>"I am sorry I checked the message too late. I actually added those files into the document as an object — not sure why it did not work. I thought adding them as objects would make them non-local and embed them inside the main file. My apologies for that. For discussions in class or office hours, please feel free to use any material or topic I've submitted."</p></div>
+  <div class="callout">Takeaway carried forward: attach supplementary files (screenshots, exports) separately rather than embedding them as in-document objects, since Canvas/grading tools can't always unpack embedded objects.</div>`}
+ ]},
+
+{id:'3-1', num:'3.1', title:'Conceiving and Programming of Agents', module:3, date:'Submitted June 2, 2026',
+ useCase:'Workers\' Compensation Board claims intake — internal process agent',
+ tags:['Agent proposal','MCP','HITL'],
+ sections:[
+  {h:'Confidential memo — proposal for company leadership', b:`<p><strong>To:</strong> Senior Leadership Team &amp; Operations Committee &nbsp; <strong>From:</strong> Shagoon Panda, Senior Operations Manager &nbsp; <strong>Subject:</strong> AI Agent Proposal: Workers' Compensation Claims Intake &nbsp; <strong>Date:</strong> June 2, 2026</p>
+  <p>Proposal: deploy an internal AI agent to modernize the Workers' Compensation Board (WCB) claims intake process across Canadian operations.</p>`},
+  {h:'Agent type and platform', b:`<p>An internal process assistant embedded in the case management portal, with Slack integration for real-time alerts. It guides submitters through role verification, employee identification, correct provincial board selection, mandatory form completion, and Claim ID generation — with a mandatory human-review step before submission.</p>`},
+  {h:'Integration approach', b:`<p>The agent connects to HRIS, the provincial compliance database, and the case management system via REST API, with middleware bridging legacy infrastructure. A second phase could leverage MCP protocols to interact directly with provincial portals, eliminating manual re-entry — a direct application of Module 3's Model Context Protocol content.</p>`},
+  {h:'Safety and ethics', b:`<p>Human approval is mandatory before any claim is submitted, given the legal and financial stakes. The agent communicates empathetically given the sensitive nature of injury reports. Role-based access controls and quarterly bias audits ensure equitable, compliant operation.</p>`},
+  {h:'Success metrics', b:`<div class="stat-tiles">
+  <div class="stat-tile"><div class="n">≥98%</div><div class="l">Provincial routing accuracy within 90 days</div></div>
+  <div class="stat-tile"><div class="n">40%</div><div class="l">Reduction in processing time</div></div>
+  <div class="stat-tile"><div class="n">60 days</div><div class="l">Regional pilot before enterprise rollout</div></div>
+  </div>
+  <p>A lower rejection rate from provincial boards is tracked as a secondary success signal alongside the two headline KPIs.</p>`},
+  {h:'Instructor feedback', b:`
+  <div class="feedback"><div class="who">Thuy Pham — Learning Facilitator</div><p>"Thank you for attending the office hours — I hope they help give you additional ideas for your own projects. Regarding your document, you did well with explaining the values that you target with your KPIs. Regarding the 2% related to incorrect routing, how will they be handled? Just manually?"</p></div>
+  <div class="callout warn"><strong>Open question this raises:</strong> the ≥98% routing-accuracy target implicitly accepts up to 2% misrouted claims. The proposal doesn't yet specify the fallback for that residual error — manual re-routing is the implied answer, but making it explicit (who reviews it, on what timeline, logged where) is exactly the kind of gap Assignment 4.1's NIST-style risk review and CareNav's later human-in-the-loop design were built to close.</div>`}
+ ]},
+
+{id:'4-1', num:'4.1', title:'AI Risks and Security Plan', module:4, date:'Submitted mid-June 2026',
+ useCase:'CareNav Agent — agentic AI clinical triage, Ontario Health',
+ tags:['Risk register','NIST','Incident response'],
+ sections:[
+  {h:'Risk register', b:`<table class="dtable"><tr><th>Risk</th><th>NIST domain</th><th>Severity</th></tr>
+  <tr><td>Prompt injection via patient free-text symptom fields, used to extract PHI from other records</td><td>Identify / Protect</td><td><span class="badge b-red">Critical</span></td></tr>
+  <tr><td>Disinformation in clinical outputs accepted without verification by an overworked clinician</td><td>Detect / Respond</td><td><span class="badge b-red">Critical</span></td></tr>
+  <tr><td>PHI data exfiltration via memorized or induced model output</td><td>Protect / Detect</td><td><span class="badge b-orange">High</span></td></tr>
+  <tr><td>Impersonation / credential theft (phishing for clinical login credentials)</td><td>Protect / Identify</td><td><span class="badge b-orange">High</span></td></tr>
+  <tr><td>Vendor / supply-chain compromise introducing a poisoned model update at scale</td><td>Identify / Recover</td><td><span class="badge b-orange">High</span></td></tr>
+  <tr><td>Automation bias — clinicians progressively reduce critical evaluation of agent output</td><td>Protect / Detect</td><td><span class="badge b-amber">Medium</span></td></tr>
+  </table>`},
+  {h:'NIST survey and gap findings', b:`<p>The assignment's own diagnostic tool is a short survey run against the NIST categories before any design work starts:</p>
+  <table class="dtable"><tr><th>Category</th><th>Guiding question</th></tr>
+  <tr><td>Identify</td><td>Do we know what systems, data, and tools the agent can access?</td></tr>
+  <tr><td>Protect</td><td>Can we control who the agent talks to, and what it can see or do?</td></tr>
+  <tr><td>Detect</td><td>Do we have a way to spot if the agent is doing something unusual or wrong?</td></tr>
+  <tr><td>Respond</td><td>If something goes wrong, do we have a plan to fix it quickly, and do we know who to notify?</td></tr>
+  <tr><td>Recover</td><td>Could we recover data or fix services if the agent caused a problem?</td></tr>
+  </table>
+  <p>Run against CareNav, the gap survey found the most critical shortfalls in Detect and Respond: no AI-specific behavioural baseline existed in the SIEM, and the general IT incident response plan had never been tested against an AI-specific scenario. Closing both gaps was treated as a precondition for go-live, not a post-launch improvement.</p>
+  <div class="callout link1">Module 4's Lisa Mendez case study is the cautionary template behind this: a single trusted-looking email escalated, through a chain nobody was watching for, into a $4.3M breach. CareNav's SIEM behavioural baseline and least-privilege access design exist specifically to catch the equivalent early-chain warning signs — anomalous access patterns, not just the final exfiltration event.</div>`},
+  {h:'Training curriculum', b:`<div class="chip-row"><span class="chip">AI security foundations</span><span class="chip">Prompt injection awareness</span><span class="chip">HITL discipline & automation bias</span><span class="chip">Incident reporting protocol</span><span class="chip">AI security for digital health leaders</span></div>
+  <p>Role-specific: all clinical staff complete foundations training; intake staff get targeted prompt-injection awareness; leadership (CISO, CMIO, product owners) get a dedicated leadership track.</p>`},
+  {h:'Incident response procedure', b:`<div class="chip-row"><span class="chip">0–1 hr · Detect & triage</span><span class="chip">1–4 hr · Contain (kill switch)</span><span class="chip">4–24 hr · Forensic assessment</span><span class="chip">24–72 hr · Recover, tightened HITL</span><span class="chip">2 wks · Post-incident review</span></div>`}
+ ]},
+
+{id:'5-1', num:'5.1', title:'AI and the Design Process', module:5, date:'Submitted June 16, 2026',
+ useCase:'CareNav Agent — Ontario Health Digital Health Innovation Unit',
+ tags:['CC/CD framework','Policy alignment','PDLC'],
+ sections:[
+  {h:'Background and problem area', b:`<p>Ontario's primary care access crisis — roughly 2.3 million Ontarians lacked a family physician as of 2024 — drives ED overcrowding. CareNav Agent assists frontline clinicians with AI-powered patient triage, differential diagnosis support, and care pathway routing based on real-time EHR data. Policy context: PM Mark Carney's <em>AI for All</em> strategy (June 4, 2026) explicitly targets this: "AI can shorten our emergency room wait times," launching a flagship AI health mission.</p>`},
+  {h:'Current workflow: an 18–20 month waterfall', b:`<p>CareNav's pre-AI design process followed a traditional waterfall: clinical requirements gathered through focus groups over 3–4 months, vendor development of 6–12 months, manual clinical QA for 3 months, then a simultaneous hard launch across all hospitals, with post-launch improvements relying on annual feedback cycles. The result: an agent that's often clinically outdated at launch and too rigid for real-world clinical variation.</p>`},
+  {h:'Selected technology: the CC/CD framework', b:`<p>Continuous Calibration / Continuous Development, supported by Azure OpenAI, AI-powered evaluation tooling, and GitHub Copilot for development sprints. CareNav is redesigned on a versioned agency ladder: v1 delivers triage categorization only with full clinician override; v2 adds differential-diagnosis suggestions reviewed by the attending clinician; v3 enables autonomous routing of low-acuity cases with human fallback. Between each version, real interaction logs are evaluated against clinical gold standards before autonomy expands.</p>`},
+  {h:'Industry evidence', b:`<table class="dtable"><tr><th>Source</th><th>Finding</th></tr>
+  <tr><td>Lenny's Newsletter (Reganti & Badam, Aug 2025)</td><td>The agency-control tradeoff: "every time you give an AI system more agency, you give up some control" — autonomy should be earned gradually and validated by evals, not assumed.</td></tr>
+  <tr><td>Akraya, Apr 2026 (citing McKinsey)</td><td>AI-enabled product engineering improves productivity, code quality, and delivery timelines by 20–45%.</td></tr>
+  <tr><td>IJSRSET, 2025</td><td>92.4% diagnostic accuracy and 95.2% triage precision for agentic clinical decision support — a 40% improvement over rule-based CDSS, with average latency of 3.7 seconds.</td></tr>
+  </table>`},
+  {h:'Current state vs. future state process flow', b:`<p>Current state (waterfall): Clinical Focus Groups → Feature Specification → Vendor Development (longest phase) → Manual Clinical QA → Hard Launch, All 14 Sites → Annual Post-Launch Review — total cycle 18–20 months, one release per cycle, no continuous feedback.</p>
+  <p>Future state (AI-enabled CC/CD): Scope → Build → Design Evals → Deploy (versioned rollout) → Monitor (real-time) → Analyze (automated error clustering) → Calibrate → Next Version — v1 achievable in under 6 months, with continuous releases and real-time calibration thereafter.</p>`},
+  {h:'Measuring the advantage: AI integration metrics', b:`<table class="dtable"><tr><th>Dimension</th><th>Baseline (no AI)</th><th>Target (AI-enabled)</th></tr>
+  <tr><td>Design-to-deploy cycle time</td><td>18–20 months</td><td>&lt;6 months for v1; weeks per subsequent cycle</td></tr>
+  <tr><td>QA cycle duration</td><td>90 days (manual)</td><td>&lt;5 days (AI-automated benchmarking)</td></tr>
+  <tr><td>Triage accuracy rate</td><td>~68% (rule-based CDSS)</td><td>92.4% (agentic AI)</td></tr>
+  <tr><td>ED average wait time</td><td>4.3 hours (CIHI 2024)</td><td>25–35% reduction target</td></tr>
+  <tr><td>Clinician trust score</td><td>N/A (no AI)</td><td>≥4.0/5.0 required to expand v1 → v2</td></tr>
+  </table>`},
+  {h:'Module 5 connection', b:`<p>CareNav's v1 → v2 → v3 agency ladder is a direct application of Module 5's crawl-walk-run maturity model: v1's full-override triage categorization is the "crawl" phase, v2's clinician-reviewed differential diagnosis is "walk," and v3's autonomous low-acuity routing is "run." The module's own clinical decision support examples — Microsoft's MAI-DxO, Duke's Sepsis Watch — are the direct industry precedent for treating agentic AI as a diagnostic collaborator rather than a replacement for clinical judgment.</p>`}
+ ]},
+
+{id:'6-1', num:'6.1', title:'AI System KPI Evaluation', module:6, date:'Submitted June 28, 2026',
+ useCase:'CareNav Agent — full 14-hospital deployment, 12 weeks post-launch',
+ tags:['KPIs','RAG status','Safety gate'],
+ sections:[
+  {h:'System purpose and functional workflow', b:`<p>CareNav automates initial ED triage assessment, assigning CTAS priority scores (1 = resuscitation to 5 = non-urgent) and recommending care pathways — tasks that previously depended entirely on triage nurses under extreme volume and time pressure. It operates across four integrated stages: voice-layer patient intake, AI triage assessment against real-time EHR data, mandatory human-in-the-loop review with documented override reasons, and continuous logging that feeds the CC/CD calibration loop.</p>`},
+  {h:'Five KPIs', b:`<table class="dtable"><tr><th>KPI</th><th>Dimension</th><th>Baseline</th><th>Target</th></tr>
+  <tr><td>Triage accuracy rate</td><td>Effectiveness</td><td>~68% (rule-based, pre-AI)</td><td>≥92% at v1, ≥95% at v2</td></tr>
+  <tr><td>ED door-to-triage time</td><td>Efficiency</td><td>4.3 hrs / 258 min (CIHI 2024)</td><td>≤170 min (33% reduction) by month 6</td></tr>
+  <tr><td>Clinician override rate</td><td>User experience / trust</td><td>Human inter-rater reliability ~78–85%</td><td>&lt;10% at v1, &lt;5% at v3</td></tr>
+  <tr><td>Cost per triage event</td><td>Efficiency / ROI</td><td>Q1 2026 finance baseline</td><td>15–20% cost reduction by Q4 2026</td></tr>
+  <tr><td>Critical miss rate</td><td>Safety / governance</td><td>~1.4–2.8% under-triage rate, Canadian high-volume EDs</td><td>0% — absolute safety gate; any miss triggers immediate halt</td></tr>
+  </table>`},
+  {h:'KPI alignment with business goals — status at 12 weeks', b:`<table class="dtable"><tr><th>Business goal</th><th>Status</th><th>Detail</th></tr>
+  <tr><td>Reduce ED wait times</td><td><span class="badge b-amber">Amber</span></td><td>18% reduction achieved (258 → 212 min); full-network data due at month 3.</td></tr>
+  <tr><td>Maintain clinical quality and safety</td><td><span class="badge b-amber">Amber</span> / <span class="badge b-green">Green</span></td><td>Accuracy at 89.3% vs. 92% target, gap concentrated in pediatric and complex geriatric cases; zero critical misses to date.</td></tr>
+  <tr><td>Build clinician trust</td><td><span class="badge b-amber">Amber</span></td><td>Override rate at 13.2% vs. 10% target; 71% of overrides cluster in pediatric and multi-language encounters.</td></tr>
+  <tr><td>Demonstrate economic value</td><td><span class="badge b-amber">Amber</span></td><td>8% early cost reduction vs. 15–20% target; full-network data required for a valid comparison.</td></tr>
+  <tr><td>Maintain regulatory compliance</td><td><span class="badge b-green">Green</span></td><td>All 14 sites passed the compliance audit; zero privacy incidents; all governance gates clear.</td></tr>
+  </table>`},
+  {h:'Overall assessment', b:`<p>At 12 weeks, CareNav shows early positive outcomes without yet reaching full target performance on accuracy, override rate, or cost — the expected trajectory for a system moving from a controlled pilot into full operational variability, not a system failure. The monitoring infrastructure is doing exactly what it's designed to do: surfacing performance gaps at 12 weeks rather than 12 months, with active feedback loops and a safety gate that has held at zero critical misses throughout.</p>
+  <div class="callout link3"><strong>Module 6 connection:</strong> this is the "pilot purgatory" problem from Module 6, handled correctly. Maple Heights Family Clinic's voice agent looked perfect in a scripted pilot and then failed on real accents, interruptions, and ambiguous escalation phrases — with no dashboard to catch it. CareNav's pediatric/multi-language override cluster is the same underlying failure mode (real-world speech variability the pilot didn't fully capture), caught here specifically because the KPI dashboard and override-reason taxonomy were built before go-live, not improvised afterward.</div>`}
+ ]},
+
+{id:'7-1', num:'7.1', title:'AI Governance Plan', module:7, date:'Submitted July 3, 2026',
+ useCase:'CareNav Agent — Ontario Health, pre-pilot governance sign-off',
+ tags:['PHIPA','Sign-off matrix','Risk-speed quadrant'],
+ sections:[
+  {h:'Applicable regulatory frameworks', b:`<table class="dtable"><tr><th>Framework</th><th>Status</th><th>Role</th></tr>
+  <tr><td>PHIPA (Ontario)</td><td>Binding — primary</td><td>Consent basis, purpose limitation, breach notification to IPC Ontario within 24 hours, 10-year audit trail retention.</td></tr>
+  <tr><td>PIPEDA (Canada, federal)</td><td>Binding — vendor layer</td><td>Governs the Azure vendor relationship and data processing agreement.</td></tr>
+  <tr><td>Canada's Algorithmic Impact Assessment</td><td>Governance benchmark</td><td>CareNav classified Level 3 (significant individual impact) — mandates HITL, explainability, bias monitoring.</td></tr>
+  <tr><td>Health Canada SaMD Guidance</td><td>Monitoring — critical at v3</td><td>v1/v2 with mandatory HITL may qualify as non-device software; v3 autonomous routing may require Class II medical device approval.</td></tr>
+  <tr><td>HIPAA / GDPR / CCPA</td><td>Not binding — benchmark</td><td>International reference standards; CareNav is designed to meet the stricter GDPR explainability bar even though it isn't legally required to.</td></tr>
+  </table>`},
+  {h:'Testing strategy: sandbox → A/B pilot → safety checks', b:`<p>Sandbox testing uses only synthetic CIHI NACRS-aggregate data (50,000 cases spanning the full CTAS 1–5 spectrum) with seeded adversarial edge cases and prompt-injection testing. The A/B pilot runs 2 CareNav sites against 12 conventional triage sites for a minimum 8 weeks and 2,000 events per arm, changing only one variable at a time. Six layered safety checks run continuously: a rule-based critical acuity filter, PHI redaction, dual input/output workflow checkpoints, the mandatory HITL confirmation gate, sampled LLM-as-judge review, and weekly bias monitoring.</p>`},
+  {h:'Version gate sign-off requirements', b:`<table class="dtable"><tr><th>Gate</th><th>Condition to unlock</th><th>Blocking criteria</th></tr>
+  <tr><td>v1 go-live</td><td>Sandbox passed, A/B pilot at 2 sites complete, accuracy ≥89%, zero critical misses, 100% compliance scan pass</td><td>Any critical miss; compliance scan fail; accuracy &lt;85%</td></tr>
+  <tr><td>v1 → v2</td><td>Accuracy ≥92% sustained 8+ weeks, override &lt;10% sustained, 3 additional sites piloted, independent statistical sign-off</td><td>Any critical miss since v1; unresolved bias disparity &gt;5%</td></tr>
+  <tr><td>v2 → v3</td><td>Accuracy ≥95%, override &lt;5%, SaMD classification review complete, legal opinion on autonomous-routing regulatory basis</td><td>Any unresolved SaMD classification question; active equity investigation</td></tr>
+  </table>
+  <p>v3 is the only gate requiring all named governance roles to sign off simultaneously, reflecting the qualitative shift from recommendation to autonomous action.</p>`},
+  {h:'Guardrail architecture', b:`<p>Five layers distribute compliance across the system rather than relying on any single control: a version-controlled system prompt (soft guardrail — a reworded input can bypass it alone), dual pre-LLM/post-LLM workflow checkpoints (hard logical rules), an API gateway enforcing rate limits and in-transit PII redaction, a vetted LLM provider with a signed data processing agreement, and an immutable, version-tagged audit trail producible within 24 hours of a regulator request.</p>`},
+  {h:'Risk analysis: compliance and operational', b:`<table class="dtable"><tr><th>Risk</th><th>Category</th><th>Severity</th></tr>
+  <tr><td>PHI breach via the voice intake layer</td><td>Compliance</td><td><span class="badge b-red">Critical</span></td></tr>
+  <tr><td>Critical miss — under-triage of a genuinely urgent case</td><td>Operational</td><td><span class="badge b-red">Critical</span></td></tr>
+  <tr><td>Purpose-limitation violation — reusing emergency-consent data for retraining</td><td>Compliance</td><td><span class="badge b-orange">High</span></td></tr>
+  <tr><td>Model drift as patient population characteristics change over time</td><td>Operational</td><td><span class="badge b-orange">High</span></td></tr>
+  <tr><td>Demographic bias in triage scoring, replicating documented disparities</td><td>Operational</td><td><span class="badge b-amber">Medium</span></td></tr>
+  </table>`},
+  {h:'Risk–speed quadrant classification', b:`<p>CareNav is classified High Risk / High Speed — the same quadrant as real-time fraud detection and medical emergency escalation. High risk because misclassification can delay resuscitation and constitute patient harm; high speed because ED triage is time-critical by definition and a slow AI system becomes a worse bottleneck than the problem it's meant to solve. The guardrail model resolves this tension as a hybrid: automated systems deliver speed, mandatory HITL delivers safety, and as the system earns trust the HITL gate narrows to flagged cases but is never eliminated entirely at the patient-facing triage level.</p>`},
+  {h:'Cross-module connections', b:`<p><strong>Module 5:</strong> CareNav's centralized audit-trail and access-control design directly answers Module 5's own U.S. healthcare cautionary example — an agent embedded in a patient intake or billing system without encryption, access logs, and a signed data processing agreement sharply increases regulatory exposure. Routing sensitive PHI access through one governed layer, even as specialized capability (voice intake, triage scoring) sits closer to the clinical workflow, is exactly the hybrid architecture Module 5 recommends.</p>
+  <p><strong>Module 4:</strong> the immutable, version-tagged audit trail here is the direct structural fix for the Lisa Mendez case study's core failure — an attacker moved through internal systems for a full week with nobody watching for anomalous access. A 24-hour producible audit trail and continuous SIEM behavioural monitoring are what would have shortened that week to hours.</p>`}
+ ]},
+
+{id:'8-1', num:'8.1', title:'The Capstone — AI Adoption Plan', module:8, date:'Submitted July 4, 2026',
+ useCase:'CareNav Agent — full leadership-ready adoption plan, synthesizing Assignments 3.1–7.1',
+ tags:['Capstone','Synthesis','Crawl-walk-run'],
+ sections:[
+  {h:'What the capstone is (and isn\'t)', b:`<p>Per Module 8's instructions, the capstone is a consolidation exercise, not a new project: it carries forward the same CareNav Agent case scoped, risk-assessed, design-processed, KPI-evaluated, and governed across Assignments 3.1 through 7.1, packaged as a single leadership-ready adoption plan across eight dimensions.</p>`},
+  {h:'The eight sections, at a glance', b:`<div class="chip-row"><span class="chip">1 · Context</span><span class="chip">2 · Technology choice</span><span class="chip">3 · Cost considerations</span><span class="chip">4 · Security plan</span><span class="chip">5 · Change management & training</span><span class="chip">6 · Scaling strategy (crawl/walk/run)</span><span class="chip">7 · Governance & compliance</span><span class="chip">8 · KPIs</span></div>
+  <p>The full interactive capstone walkthrough — with the crawl/walk/run stepper, cost tables, ethics section, and sign-off matrix — lives on the dedicated <a onclick="go('capstone')">Capstone page</a> of this site.</p>`},
+  {h:'How Module 1 shows up in the capstone', b:`<p>The cost-modeling discipline from Module 1 — three real cost drivers (compute, tokens, energy) and explicit accuracy-vs-cost, speed-vs-power tradeoffs — is what grounds the capstone's cost section: a three-year CapEx/OpEx/staffing projection rather than a single "it'll pay for itself" claim, and a deliberate acknowledgment that no prior CareNav assignment had actually estimated capital cost before the capstone required it.</p>`},
+  {h:'How Module 3 shows up in the capstone', b:`<p>Module 3's integration barriers (legacy systems, data compatibility, performance) and MCP framework directly inform the capstone's technology-choice and governance sections: CareNav's five-layer guardrail architecture (system prompt, workflow checkpoints, API gateway, vendor verification, audit trail) is the same layered-defense logic Module 3 teaches for any agent operating across enterprise systems, and the crawl/walk/run scaling path is a direct application of Module 3's human-in-the-loop safety principle — autonomy expands only as trust is earned, never assumed.</p>`}
+ ]}
+];
+
+</script>
+<script id="app-script">
+function esc(s){ return s; }
+
+function moduleCard(m){
+  return `<div class="card" onclick="go('module',${m.num})">
+    <div class="cnum">Module ${m.num}</div>
+    <h3>${m.title}</h3>
+    <p>${m.tagline}</p>
+    <div class="ctags">${m.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+  </div>`;
+}
+function assignmentCard(a){
+  return `<div class="card" onclick="go('assignment','${a.id}')">
+    <div class="cnum">Assignment ${a.num}</div>
+    <h3>${a.title}</h3>
+    <p>${a.useCase}</p>
+    <div class="ctags">${a.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+  </div>`;
+}
+
+function timelineHTML(currentModule){
+  return `<div class="timeline"><div class="wrap"><div class="timeline-track">
+  ${MODULES.map(m=>`<div class="tnode ${currentModule===m.num?'current':''}" onclick="go('module',${m.num})">
+    <div class="dot">${m.num}</div><div class="tlabel">${m.title.split(':')[0].split(',')[0]}</div>
+  </div>`).join('')}
+  </div></div></div>`;
+}
+
+function renderHome(){
+  return `
+  <section class="hero"><div class="wrap">
+    <p class="eyebrow">MIT Professional Education · Cohort May 2026</p>
+    <h1>Applied Agentic AI for Organizational Transformation</h1>
+    <p class="lede">A course portfolio built from the module content and the assignment work submitted across eight modules — from evaluating raw token costs in Module 1, through connecting agents to real digital ecosystems in Module 3, to a governed, phased AI adoption plan in the Module 8 capstone.</p>
+    <div class="hero-meta">
+      <div>Modules<b>8</b></div>
+      <div>Assignments<b>8</b></div>
+      <div>Prepared by<b>Shagoon Sarita Panda</b></div>
+      <div>Primary case study<b>CareNav Agent</b></div>
+    </div>
+  </div></section>
+  ${timelineHTML(0)}
+  <section class="section"><div class="wrap">
+    <div class="section-head"><p class="kicker">Start here</p><h2>Two ways through this course</h2><p>Browse module by module for the underlying concepts, or jump straight to the assignments to see how those concepts were applied — most build on the same running case study.</p></div>
+    <div class="grid cols-3">
+      <div class="card" onclick="go('modules')"><div class="cnum">Path 1</div><h3>Modules</h3><p>The concepts: generative AI foundations, agentic platforms, digital-ecosystem integration, risk, design process, KPIs, governance, and ethics.</p></div>
+      <div class="card" onclick="go('assignments')"><div class="cnum">Path 2</div><h3>Assignments</h3><p>The applied work: eight submissions spanning a WCB claims agent, a vibe-coded mental health prototype, and the CareNav clinical triage agent.</p></div>
+      <div class="card" onclick="go('capstone')"><div class="cnum">Synthesis</div><h3>Capstone</h3><p>Everything pulled into one leadership-ready AI adoption plan — context, cost, security, change management, scaling, governance, and KPIs.</p></div>
+    </div>
+  </div></section>
+  <section class="section" style="padding-top:0;"><div class="wrap">
+    <div class="section-head"><p class="kicker">What this course builds toward</p><h2>Capstone learning outcomes</h2><p style="max-width:760px;">Explain how AI can be strategically integrated into organizational functions to create business value:</p></div>
+    <div class="grid cols-4">
+      <div class="card" onclick="go('modules')"><div class="cnum">Outcome 1</div><h3>Evaluate suitability</h3><p>Evaluate the suitability of AI technologies for specific organizational use cases.</p></div>
+      <div class="card" onclick="go('assignment','4-1')"><div class="cnum">Outcome 2</div><h3>Analyze implications</h3><p>Analyze the cost, security, and operational implications of AI adoption.</p></div>
+      <div class="card" onclick="go('module',6)"><div class="cnum">Outcome 3</div><h3>Assess human factors</h3><p>Assess the human and organizational factors that influence successful AI implementation.</p></div>
+      <div class="card" onclick="go('capstone')"><div class="cnum">Outcome 4</div><h3>Synthesize an approach</h3><p>Synthesize course concepts into a structured approach for organizational AI adoption.</p></div>
+    </div>
+  </div></section>`;
+}
+
+function renderModulesIndex(){
+  return `<section class="section" style="padding-top:38px;"><div class="wrap">
+    <div class="section-head"><p class="kicker">Modules 1–8</p><h2>Course modules</h2><p>Click any module for the full breakdown — every heading expands for detail.</p></div>
+    <div class="grid cols-4">${MODULES.map(moduleCard).join('')}</div>
+  </div></section>`;
+}
+
+function renderAssignmentsIndex(){
+  return `<section class="section" style="padding-top:38px;"><div class="wrap">
+    <div class="section-head"><p class="kicker">Assignments 1.1–8.1</p><h2>Submitted work</h2><p>Click any assignment for the full write-up — instructions, submitted content, and (where applicable) instructor feedback.</p></div>
+    <div class="grid cols-4">${ASSIGNMENTS.map(assignmentCard).join('')}</div>
+  </div></section>`;
+}
+
+function accordionHTML(sections, prefix){
+  return sections.map((s,i)=>`
+  <div class="acc-item ${i===0?'open':''}" id="${prefix}-${i}">
+    <div class="acc-head" onclick="toggleAcc('${prefix}-${i}')">
+      <h3>${s.h}</h3><span class="chev">&#10148;</span>
+    </div>
+    <div class="acc-body"><div class="acc-inner">${s.b}</div></div>
+  </div>`).join('');
+}
+
+function tocHTML(sections, prefix){
+  return sections.map((s,i)=>`<a onclick="jumpAcc('${prefix}-${i}')">${s.h}</a>`).join('');
+}
+
+function renderModuleDetail(num){
+  const m = MODULES.find(x=>x.num===num);
+  if(!m) return renderModulesIndex();
+  const relatedA = ASSIGNMENTS.find(a=>a.num===m.assignmentRef);
+  return `
+  <div class="detail-head"><div class="wrap">
+    <span class="back-link" onclick="go('modules')">&larr; All modules</span>
+    <p class="kicker">Module ${m.num}</p>
+    <h1>${m.title}</h1>
+    <p class="sub">${m.tagline}</p>
+    <div class="badgebar">${m.tags.map(t=>`<span class="badge b-accent">${t}</span>`).join('')}</div>
+    ${m.note?`<div class="callout warn" style="max-width:640px; margin-top:16px;">${m.note}</div>`:''}
+  </div></div>
+  ${timelineHTML(m.num)}
+  <div class="wrap"><div class="detail-body">
+    <div class="toc">
+      <div class="toc-label">On this page</div>
+      ${tocHTML(m.sections,'m'+m.num)}
+      <div class="toc-label" style="margin-top:18px;">Learning outcomes</div>
+      <ul style="font-size:13.5px; color:var(--ink-soft); padding-left:16px; margin:0;">${m.outcomes.map(o=>`<li style="margin-bottom:6px;">${o}</li>`).join('')}</ul>
+    </div>
+    <div>
+      ${accordionHTML(m.sections,'m'+m.num)}
+      ${relatedA?`<div class="callout link1"><strong>Applied in Assignment ${relatedA.num}:</strong> ${relatedA.title} &nbsp;
+      <span style="cursor:pointer; text-decoration:underline;" onclick="go('assignment','${relatedA.id}')">View the assignment &rarr;</span></div>`:''}
+    </div>
+  </div></div>`;
+}
+
+function renderAssignmentDetail(id){
+  const a = ASSIGNMENTS.find(x=>x.id===id);
+  if(!a) return renderAssignmentsIndex();
+  const relatedM = MODULES.find(m=>m.num===a.module);
+  return `
+  <div class="detail-head"><div class="wrap">
+    <span class="back-link" onclick="go('assignments')">&larr; All assignments</span>
+    <p class="kicker">Assignment ${a.num} &middot; ${a.date}</p>
+    <h1>${a.title}</h1>
+    <p class="sub">${a.useCase}</p>
+    <div class="badgebar">${a.tags.map(t=>`<span class="badge b-accent">${t}</span>`).join('')}${relatedM?`<span class="badge b-purple" style="cursor:pointer;" onclick="go('module',${relatedM.num})">Module ${relatedM.num}: ${relatedM.title}</span>`:''}</div>
+  </div></div>
+  <div class="wrap"><div class="detail-body">
+    <div class="toc">
+      <div class="toc-label">On this page</div>
+      ${tocHTML(a.sections,'a'+a.id)}
+    </div>
+    <div>
+      ${accordionHTML(a.sections,'a'+a.id)}
+    </div>
+  </div></div>`;
+}
+
+function toggleAcc(id){
+  document.getElementById(id).classList.toggle('open');
+}
+function jumpAcc(id){
+  const el = document.getElementById(id);
+  if(!el.classList.contains('open')) el.classList.add('open');
+  el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function renderCapstone(){
+  return `
+  <div class="detail-head"><div class="wrap">
+    <p class="kicker">Assignment 8.1 &middot; Full walkthrough</p>
+    <h1>The Capstone — AI Adoption Plan</h1>
+    <p class="sub">CareNav Agent: agentic AI clinical triage for Ontario Health emergency departments. Every section below expands — click a heading for the detail behind it.</p>
+  </div></div>
+  <div class="wrap" style="padding:34px 0 70px 0;">
+    <div class="acc-item open" id="cap-0"><div class="acc-head" onclick="toggleAcc('cap-0')"><h3>Executive summary</h3><span class="chev">&#10148;</span></div>
+    <div class="acc-body"><div class="acc-inner"><p>CareNav Agent assigns CTAS triage scores and recommends care pathways, with mandatory human-in-the-loop confirmation on every recommendation at launch. This plan carries the case from pilot to full-network deployment across eight dimensions, each earning autonomy incrementally, under named accountability, never on a fixed calendar.</p>
+    <div class="stat-tiles">
+      <div class="stat-tile"><div class="n">4.3 hrs → &lt;3 hrs</div><div class="l">Target ED door-to-triage wait</div></div>
+      <div class="stat-tile"><div class="n">2.3M</div><div class="l">Ontarians without a family physician (2024)</div></div>
+      <div class="stat-tile"><div class="n">14</div><div class="l">Ontario hospital networks</div></div>
+    </div></div></div></div>
+
+    <div class="acc-item" id="cap-1"><div class="acc-head" onclick="toggleAcc('cap-1')"><h3>1 · Context</h3><span class="chev">&#10148;</span></div>
+    <div class="acc-body"><div class="acc-inner"><p>Ontario Health, Digital Health Innovation Unit — ED Operations & Clinical AI. Patient intake and triage at the point of ED arrival, across 14 hospital networks, interoperating with the ONE ID/Epic Ontario EHR, OLIS labs, and hospital scheduling systems.</p>
+    <table class="dtable"><tr><th>Stakeholder</th><th>Readiness</th><th>What the plan requires</th></tr>
+    <tr><td>ED triage nurses</td><td>No prior AI-tool exposure</td><td>Mandatory training, HITL confirmation discipline</td></tr>
+    <tr><td>Clinical AI Steering Committee</td><td>Established, monthly cadence</td><td>Own version-gate decisions and bias-review triggers</td></tr>
+    <tr><td>Azure OpenAI (vendor)</td><td>Healthcare DPA signed</td><td>24-hour breach notification, model card disclosure</td></tr>
+    </table></div></div></div>
+
+    <div class="acc-item" id="cap-2"><div class="acc-head" onclick="toggleAcc('cap-2')"><h3>2 · Technology choice</h3><span class="chev">&#10148;</span></div>
+    <div class="acc-body"><div class="acc-inner"><p>Agentic AI on Azure OpenAI (Canada Central), selected over a static rules-based CDSS and an off-the-shelf third-party triage AI — the only option meeting both the Canadian-residency and HITL-mandatory bar without a multi-year custom build.</p>
+    <div class="chip-row"><span class="chip">01 · System prompt</span><span class="chip">02 · Workflow checkpoints</span><span class="chip">03 · API gateway</span><span class="chip">04 · LLM provider (BAA)</span><span class="chip">05 · Audit trail</span></div>
+    <div class="callout link3"><strong>Module 3 connection:</strong> this five-layer guardrail architecture is a direct application of Module 3's integration-barrier framework — middleware, API governance, and layered defense for any agent operating across enterprise systems.</div>
+    </div></div></div>
+
+    <div class="acc-item" id="cap-3"><div class="acc-head" onclick="toggleAcc('cap-3')"><h3>3 · Cost considerations</h3><span class="chev">&#10148;</span></div>
+    <div class="acc-body"><div class="acc-inner">
+    <table class="dtable"><tr><th>Category</th><th>Estimate</th></tr>
+    <tr><td>Capital expenditure (one-time)</td><td>$0.85M–$1.2M</td></tr>
+    <tr><td>Operational expenditure (annual)</td><td>$180K–$240K</td></tr>
+    <tr><td>Staffing & training (annual)</td><td>$300K–$370K</td></tr>
+    </table>
+    <div class="callout link1"><strong>Module 1 connection:</strong> this cost envelope applies Module 1's three cost drivers directly — compute infrastructure (Azure provisioning), token/model choice (Azure OpenAI pricing tier), and the staffing cost of responsible operation. No prior CareNav assignment had estimated capital cost before the capstone required it.</div>
+    </div></div></div>
+
+    <div class="acc-item" id="cap-4"><div class="acc-head" onclick="toggleAcc('cap-4')"><h3>4 · Security plan</h3><span class="chev">&#10148;</span></div>
+    <div class="acc-body"><div class="acc-inner"><p>NIST-aligned defense against prompt injection, PHI exfiltration, credential theft, and vendor supply-chain risk, with a five-step time-boxed incident response procedure (detect &amp; triage, contain via kill switch, forensic assessment, recover with tightened HITL, post-incident review).</p></div></div></div>
+
+    <div class="acc-item" id="cap-5"><div class="acc-head" onclick="toggleAcc('cap-5')"><h3>5 · Change management and training</h3><span class="chev">&#10148;</span></div>
+    <div class="acc-body"><div class="acc-inner"><p>No triage role is eliminated — nurses shift from unassisted triage to AI-supervised triage. An override rate that falls below 3% is treated as a warning sign of automation bias, not a success metric, echoing the Commonwealth Bank of Australia's 2025 reversal of an AI voice-bot rollout that replaced rather than augmented frontline staff.</p></div></div></div>
+
+    <div class="acc-item" id="cap-6"><div class="acc-head" onclick="toggleAcc('cap-6')"><h3>6 · Scaling strategy — crawl, walk, run</h3><span class="chev">&#10148;</span></div>
+    <div class="acc-body"><div class="acc-inner">
+    <table class="dtable"><tr><th>Stage</th><th>Scope</th><th>Gate to advance</th></tr>
+    <tr><td>Crawl (v1)</td><td>Triage categorization, full override</td><td>Accuracy ≥89%, zero critical misses</td></tr>
+    <tr><td>Walk (v2)</td><td>+ Differential diagnosis</td><td>Accuracy ≥92% sustained 8+ weeks, override &lt;10%</td></tr>
+    <tr><td>Run (v3)</td><td>Autonomous routing, human fallback</td><td>Accuracy ≥95%, override &lt;5%, SaMD resolved</td></tr>
+    </table>
+    <div class="callout link3"><strong>Module 3 connection:</strong> this ladder is Module 3's human-in-the-loop principle in a governance structure — autonomy is earned stage by stage, never assumed, and never fully removed at the patient-facing layer.</div>
+    </div></div></div>
+
+    <div class="acc-item" id="cap-7"><div class="acc-head" onclick="toggleAcc('cap-7')"><h3>7 · Governance and ethics</h3><span class="chev">&#10148;</span></div>
+    <div class="acc-body"><div class="acc-inner"><p>PHIPA primary, PIPEDA for the vendor layer, Canada's AIA (Level 3) as governance benchmark, Health Canada SaMD guidance decisive only at v3. Four ethical principles applied directly: fairness (weekly demographic disparity monitoring, 5% threshold trigger), transparency (explainability summary with every recommendation), accountability (a named clinician, never the model, owns the decision), and privacy (de-identified synthetic data only for retraining).</p></div></div></div>
+
+    <div class="acc-item" id="cap-8"><div class="acc-head" onclick="toggleAcc('cap-8')"><h3>8 · Key performance indicators</h3><span class="chev">&#10148;</span></div>
+    <div class="acc-body"><div class="acc-inner">
+    <div class="grid cols-3">
+    <div class="stat-tile"><div class="n">89.3%</div><div class="l">Triage accuracy · target ≥92% <span class="badge b-amber">Amber</span></div></div>
+    <div class="stat-tile"><div class="n">212 min</div><div class="l">Door-to-triage · target ≤170 <span class="badge b-amber">Amber</span></div></div>
+    <div class="stat-tile"><div class="n">0%</div><div class="l">Critical miss rate · safety gate <span class="badge b-green">Green</span></div></div>
+    </div></div></div></div>
+
+    <div class="callout" style="margin-top:20px;">Prepared for MIT Professional Education — Applied Agentic AI for Organizational Transformation · Assignment 8.1: The Capstone · Shagoon Sarita Panda</div>
+  </div>`;
+}
+
+let currentRoute = {page:'home'};
+
+function go(page, arg){
+  currentRoute = {page, arg};
+  location.hash = arg!==undefined ? `${page}/${arg}` : page;
+  render();
+  window.scrollTo({top:0, behavior:'instant'});
+  document.getElementById('navlinks').classList.remove('open');
+}
+
+function render(){
+  const app = document.getElementById('app');
+  let html = '';
+  if(currentRoute.page==='home') html = renderHome();
+  else if(currentRoute.page==='modules') html = renderModulesIndex();
+  else if(currentRoute.page==='module') html = renderModuleDetail(Number(currentRoute.arg));
+  else if(currentRoute.page==='assignments') html = renderAssignmentsIndex();
+  else if(currentRoute.page==='assignment') html = renderAssignmentDetail(currentRoute.arg);
+  else if(currentRoute.page==='capstone') html = renderCapstone();
+  else html = renderHome();
+  app.innerHTML = html;
+
+  document.querySelectorAll('.navlinks a').forEach(a=>{
+    a.classList.toggle('active', a.dataset.route===currentRoute.page);
+  });
+}
+
+function parseHash(){
+  const h = location.hash.replace('#','');
+  if(!h){ currentRoute = {page:'home'}; return; }
+  const [page, arg] = h.split('/');
+  currentRoute = {page, arg};
+}
+
+window.addEventListener('hashchange', ()=>{ parseHash(); render(); });
+parseHash();
+render();
+
+</script>
+
+</body>
+</html>
